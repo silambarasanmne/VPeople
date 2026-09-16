@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="ta" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>V People Foundation - பயனாளிகள் விவரங்கள் சேகரிப்பு படிவம் | Beneficiary Details Form</title>
+  <meta name="description" content="V People Foundation Beneficiary Details Collection Form - மக்களுக்காக. மக்களுடன். மக்களால். Fill and download/print beneficiary application form.">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              500: '#0ea5e9',
+              600: '#0284c7',
+              700: '#0369a1',
+              800: '#075985',
+              900: '#0c4a6e',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- html2pdf Bundle -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col justify-between">
+
+  <!-- TOP HEADER / NAV -->
+  <header class="sticky top-0 z-40 bg-brand-800 text-white shadow-lg no-print">
+    <div class="max-w-6xl mx-auto px-4 py-2.5 flex flex-wrap items-center justify-between gap-4">
+      
+      <!-- LOGO & BRANDING -->
+      <div class="flex items-center gap-3 cursor-pointer" onclick="showHomePage()">
+        <img src="assets/logo.png" alt="V People Foundation Logo" class="w-11 h-11 rounded-full bg-white object-contain shadow-md border-2 border-amber-400 p-0.5" />
+        <div>
+          <h1 class="text-xl md:text-2xl font-bold tracking-tight text-white flex items-center gap-2">
+            V PEOPLE <span class="text-amber-300 text-base font-semibold hidden sm:inline">FOUNDATION</span>
+          </h1>
+          <p class="text-xs text-sky-200 font-medium">
+            மக்களுக்காக. மக்களுடன். மக்களால்.
+          </p>
+        </div>
+      </div>
+
+      <!-- CONTACT SUMMARY (DESKTOP) -->
+      <div class="hidden lg:flex items-center gap-6 text-xs text-sky-100">
+        <div class="flex items-center gap-1.5">
+          <i data-lucide="map-pin" class="w-4 h-4 text-amber-300"></i>
+          <span>Jafferkhanpet, Chennai - 600083</span>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <i data-lucide="phone" class="w-4 h-4 text-amber-300"></i>
+          <span class="font-semibold">9940100126</span>
+        </div>
+      </div>
+
+      <!-- NAVIGATION TABS -->
+      <nav class="flex items-center gap-1.5 bg-brand-900/60 p-1.5 rounded-xl border border-sky-600/40">
+        <button id="nav-home-btn" class="px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all bg-brand-700 text-white shadow">
+          முகப்பு / Home
+        </button>
+        <button id="nav-form-btn" class="px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all text-sky-100 hover:bg-brand-700/60 flex items-center gap-1">
+          <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
+          படிவம் / Form
+        </button>
+        <button id="nav-admin-btn" class="px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all text-sky-100 hover:bg-brand-700/60 flex items-center gap-1">
+          <i data-lucide="shield-check" class="w-3.5 h-3.5 text-amber-300"></i>
+          நிர்வாகி / Admin
+        </button>
+      </nav>
+
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT AREA -->
+  <main class="flex-grow">
+
+    <!-- ==================== PAGE 1: HOME LANDING PAGE ==================== -->
+    <section id="home-page" class="w-full">
+      
+      <!-- HERO BANNER -->
+      <div class="bg-gradient-to-b from-brand-800 via-brand-700 to-sky-600 text-white py-14 px-4 shadow-inner">
+        <div class="max-w-4xl mx-auto text-center space-y-6">
+          
+          <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-400/20 text-amber-200 border border-amber-300/40 text-xs font-semibold uppercase tracking-wider">
+            <i data-lucide="award" class="w-4 h-4 text-amber-300"></i>
+            அறக்கட்டளை சேவை படிவம் / Foundation Welfare Application
+          </div>
+
+          <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight leading-tight">
+            V PEOPLE FOUNDATION
+          </h2>
+          <p class="text-xl md:text-2xl text-amber-300 font-bold tracking-wide">
+            FOR PEOPLE. WITH PEOPLE. BY PEOPLE.
+          </p>
+
+          <p class="max-w-2xl mx-auto text-sm md:text-base text-sky-50 leading-relaxed font-light">
+            கல்வி உதவி, மருத்துவ உதவி, வாழ்வாதார மேம்பாடு மற்றும் மூத்த குடிமக்கள் ஆதரவு பெறுவதற்கான பயனாளி விவரங்கள் சேகரிப்பு படிவத்தை ஆன்லைனில் சுலபமாக நிரப்பி அச்சிடலாம்.
+          </p>
+
+          <div class="pt-4 flex flex-wrap items-center justify-center gap-4">
+            <button id="hero-fill-form-btn" class="px-8 py-4 rounded-xl bg-amber-400 hover:bg-amber-300 text-brand-900 font-extrabold text-base md:text-lg shadow-xl hover:shadow-2xl transition-all transform hover:-translate-y-0.5 flex items-center gap-2">
+              <i data-lucide="edit-3" class="w-5 h-5 text-brand-900"></i>
+              படிவம் நிரப்புக / Fill Form Now
+            </button>
+            
+            <a href="tel:9940100126" class="px-6 py-4 rounded-xl bg-brand-900/70 hover:bg-brand-900 text-white font-semibold text-sm md:text-base border border-sky-300/30 transition-all flex items-center gap-2">
+              <i data-lucide="phone-call" class="w-4 h-4 text-amber-300"></i>
+              தொடர்புகொள்ள: 9940100126
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- FEATURES / INFO CARDS -->
+      <div class="max-w-5xl mx-auto px-4 py-12">
+        <div class="text-center mb-10">
+          <h3 class="text-2xl font-bold text-brand-900">படிவத்தின் முக்கிய அம்சங்கள் / Highlights</h3>
+          <p class="text-slate-600 text-sm mt-1">அலுவலக மற்றும் பயனாளி தேவைகளுக்கு ஏற்ப உருவாக்கப்பட்ட எளிய படிவம்</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          
+          <!-- Card 1 -->
+          <div class="bg-white p-6 rounded-2xl border border-sky-100 shadow-md hover:shadow-lg transition-all space-y-3">
+            <div class="w-12 h-12 rounded-xl bg-sky-100 text-brand-600 flex items-center justify-center">
+              <i data-lucide="languages" class="w-6 h-6"></i>
+            </div>
+            <h4 class="text-lg font-bold text-slate-800">தமிழ் & ஆங்கிலம் (Bilingual)</h4>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              அனைத்து புலங்களும் தமிழ் மற்றும் ஆங்கில மொழிகளில் தெளிவாக குறிப்பிடப்பட்டுள்ளன.
+            </p>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="bg-white p-6 rounded-2xl border border-sky-100 shadow-md hover:shadow-lg transition-all space-y-3">
+            <div class="w-12 h-12 rounded-xl bg-sky-100 text-brand-600 flex items-center justify-center">
+              <i data-lucide="printer" class="w-6 h-6"></i>
+            </div>
+            <h4 class="text-lg font-bold text-slate-800">A4 PDF / அச்சிடும் வசதி</h4>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              ஒரு கிளிக்கில் A4 வடிவில் PDF பதிவிறக்கம் செய்யலாம் அல்லது நேரடியாக பிரிண்ட் எடுக்கலாம்.
+            </p>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="bg-white p-6 rounded-2xl border border-sky-100 shadow-md hover:shadow-lg transition-all space-y-3">
+            <div class="w-12 h-12 rounded-xl bg-sky-100 text-brand-600 flex items-center justify-center">
+              <i data-lucide="lock" class="w-6 h-6"></i>
+            </div>
+            <h4 class="text-lg font-bold text-slate-800">பாதுகாப்பு & இரகசியம்</h4>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              உங்கள் தனிப்பட்ட விவரங்கள் முற்றிலும் பாதுகாப்பாகவும் இரகசியமாகவும் பராமரிக்கப்படும்.
+            </p>
+          </div>
+
+        </div>
+
+        <!-- FOUNDATION CONTACT CARD WITH LOGO -->
+        <div class="mt-12 bg-gradient-to-r from-sky-50 to-white rounded-2xl p-6 md:p-8 border border-sky-200 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
+          <div class="flex items-center gap-4 text-center md:text-left">
+            <img src="assets/logo.png" alt="V People Logo" class="w-16 h-16 rounded-full bg-white object-contain p-1 border-2 border-amber-400 shadow shrink-0" />
+            <div class="space-y-1">
+              <h4 class="text-xl font-bold text-brand-900">அறக்கட்டளை முகவரி / Foundation Office Address</h4>
+              <p class="text-sm text-slate-700 font-medium">NO.26 X BLOCK, R.V.NAGAR, JAFFERKHANPET, CHENNAI - 600083</p>
+              <div class="flex flex-wrap gap-4 text-xs font-semibold text-brand-700 justify-center md:justify-start pt-1">
+                <span class="flex items-center gap-1"><i data-lucide="phone" class="w-3.5 h-3.5"></i> 9940100126</span>
+                <span class="flex items-center gap-1"><i data-lucide="mail" class="w-3.5 h-3.5"></i> VPEOPLEFOUNDATION@GMAIL.COM</span>
+              </div>
+            </div>
+          </div>
+          <button onclick="showFormPage()" class="px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-sm shadow transition-colors whitespace-nowrap">
+            படிவத்திற்கு செல்லவும் →
+          </button>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ==================== PAGE 2: FORM PAGE (Bilingual Reference Form) ==================== -->
+    <section id="form-page" class="hidden w-full py-6 px-2 sm:px-4">
+      
+      <!-- TOOLBAR ACTIONS (NO PRINT) -->
+      <div class="max-w-4xl mx-auto mb-6 bg-white p-3 sm:p-4 rounded-xl border border-sky-200 shadow-md flex flex-wrap items-center justify-between gap-3 no-print">
+        <div class="flex items-center gap-2">
+          <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span class="text-xs sm:text-sm font-semibold text-slate-700">படிவம் நிரப்ப தயாராக உள்ளது / Form Ready</span>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2">
+          <button type="button" onclick="fillSampleData()" class="px-3.5 py-2 rounded-lg bg-sky-100 hover:bg-sky-200 text-brand-800 text-xs sm:text-sm font-bold transition-colors flex items-center gap-1.5">
+            <i data-lucide="sparkles" class="w-4 h-4 text-brand-600"></i>
+            மாதிரி விவரங்கள் / Fill Demo Data
+          </button>
+
+          <button type="button" onclick="clearForm()" class="px-3 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs sm:text-sm font-semibold transition-colors flex items-center gap-1">
+            <i data-lucide="trash-2" class="w-4 h-4"></i>
+            அழிக்க / Clear
+          </button>
+
+          <button type="button" onclick="printForm()" class="px-3.5 py-2 rounded-lg bg-brand-600 hover:bg-brand-700 text-white text-xs sm:text-sm font-bold shadow transition-colors flex items-center gap-1.5">
+            <i data-lucide="printer" class="w-4 h-4"></i>
+            அச்சிடுக / Print
+          </button>
+
+          <button type="button" onclick="downloadPDF()" class="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-bold shadow transition-colors flex items-center gap-1.5">
+            <i data-lucide="download" class="w-4 h-4"></i>
+            PDF பதிவிறக்கு
+          </button>
+        </div>
+      </div>
+
+      <!-- PRINTABLE FORM CONTAINER -->
+      <div id="form-printable-area" class="max-w-4xl mx-auto bg-white rounded-xl shadow-xl border border-sky-300 p-4 sm:p-8 print-container">
+        
+        <!-- HEADER PRINTABLE SECTION WITH OFFICIAL LOGO -->
+        <div class="border-b-2 border-brand-800 pb-4 mb-4">
+          <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+            
+            <div class="flex items-center gap-4 text-center sm:text-left">
+              <img src="assets/logo.png" alt="V People Foundation Logo" class="w-20 h-20 rounded-full bg-white object-contain shadow-md border-2 border-amber-400 p-0.5 shrink-0" />
+              <div>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-brand-900 tracking-wide uppercase">
+                  V PEOPLE
+                </h2>
+                <div class="text-amber-600 text-xs tracking-widest uppercase font-bold flex items-center justify-center sm:justify-start gap-1">
+                  — FOUNDATION —
+                </div>
+                <p class="text-xs sm:text-sm text-brand-800 font-bold mt-0.5">
+                  மக்களுக்காக. மக்களுடன். மக்களால்.
+                </p>
+              </div>
+            </div>
+
+            <div class="text-xs text-slate-700 space-y-1 text-center sm:text-right border-t sm:border-t-0 pt-2 sm:pt-0 border-slate-200">
+              <div class="flex items-center justify-center sm:justify-end gap-1.5 font-medium">
+                <i data-lucide="map-pin" class="w-3.5 h-3.5 text-brand-600 shrink-0"></i>
+                <span>NO.26 X BLOCK, R.V.NAGAR,<br>JAFFERKHANPET, CHENNAI - 600083</span>
+              </div>
+              <div class="flex items-center justify-center sm:justify-end gap-1.5 font-bold text-slate-900">
+                <i data-lucide="phone" class="w-3.5 h-3.5 text-brand-600 shrink-0"></i>
+                <span>9940100126</span>
+              </div>
+              <div class="flex items-center justify-center sm:justify-end gap-1.5 text-slate-600">
+                <i data-lucide="mail" class="w-3.5 h-3.5 text-brand-600 shrink-0"></i>
+                <span class="lowercase">VPEOPLEFOUNDATION@GMAIL.COM</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- FORM TITLE BANNER -->
+        <div class="bg-brand-900 text-white text-center py-2.5 px-4 rounded-lg font-bold text-lg sm:text-xl tracking-wide shadow-sm mb-3 print-header-bg">
+          பயனாளி விவரங்கள் சேகரிப்பு படிவம்
+        </div>
+
+        <!-- PRIVACY & CONFIDENTIALITY NOTICE BOX -->
+        <div class="bg-sky-50/80 border border-sky-200 rounded-lg p-3 mb-6 text-xs text-slate-700 space-y-1 font-medium">
+          <div class="flex items-start gap-2">
+            <i data-lucide="lock" class="w-4 h-4 text-brand-700 shrink-0 mt-0.5"></i>
+            <span>இப் படிவத்தில் வழங்கப்படும் தகவல்கள் இரகசியமாக வைக்கப்படும் மற்றும் உதவி வழங்கும் நோக்கத்திற்காக மட்டுமே பயன்படுத்தப்படும்.</span>
+          </div>
+          <div class="flex items-start gap-2">
+            <i data-lucide="check-circle-2" class="w-4 h-4 text-brand-700 shrink-0 mt-0.5"></i>
+            <span>மேலே கொடுக்கப்பட்டுள்ள தகவல்கள் அனைத்தும் எனது அறிவிற்கு உண்மையானவை.</span>
+          </div>
+          <p class="text-red-600 font-bold pl-6">
+            தவறான தகவல் வழங்கப்பட்டால் உதவி ரத்து செய்யப்படும் / நிறுத்தப்படும் என்பதை புரிந்துக்கொண்டுள்ளேன்.
+          </p>
+        </div>
+
+        <!-- FORM ENTRY -->
+        <form id="beneficiary-form" onsubmit="handleFormSubmit(event)" class="space-y-6">
+
+          <!-- SECTION 1 & 2 -->
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+            <!-- SECTION 1: PERSONAL DETAILS -->
+            <div class="border border-sky-300 rounded-xl overflow-hidden shadow-sm bg-white print-card">
+              <div class="bg-brand-800 text-white px-3 py-2 text-sm font-bold flex items-center gap-2 print-sub-bg">
+                <i data-lucide="user" class="w-4 h-4"></i>
+                1. தனிப்பட்ட விவரங்கள் / PERSONAL DETAILS
+              </div>
+              
+              <div class="p-3.5 space-y-3 text-xs sm:text-sm">
+                <div class="flex flex-col sm:flex-row sm:items-center gap-1">
+                  <label for="fullname" class="sm:w-2/5 font-semibold text-slate-700">முழு பெயர் / Full Name <span class="text-red-500">*</span> :</label>
+                  <input type="text" id="fullname" name="fullname" required
+                    class="sm:w-3/5 px-2.5 py-1.5 border border-slate-300 rounded focus:ring-2 focus:ring-sky-500">
+                </div>
+
+                <div class="flex flex-col sm:flex-row sm:items-center gap-2">
+                  <div class="flex items-center gap-1 sm:w-3/5">
+                    <label for="dob" class="font-semibold text-slate-700 whitespace-nowrap">பிறந்த தேதி / DOB :</label>
+                    <input type="date" id="dob" name="dob"
+                      class="w-full px-2 py-1 text-xs border border-slate-300 rounded focus:ring-2 focus:ring-sky-500">
+                  </div>
+                  <div class="flex items-center gap-1 sm:w-2/5">
+                    <label for="age" class="font-semibold text-slate-700">வயது / Age :</label>
+                    <input type="number" id="age" name="age" min="0" max="120"
+                      class="w-full px-2 py-1 text-xs border border-slate-300 rounded text-center font-bold">
+                  </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row sm:items-center gap-1">
+                  <label class="sm:w-2/5 font-semibold text-slate-700">பாலினம் / Gender :</label>
+                  <div class="sm:w-3/5 flex items-center gap-4">
+                    <label class="inline-flex items-center gap-1 cursor-pointer">
+                      <input type="radio" name="gender" value="Female" class="text-brand-600">
+                      <span>பெண் / Female</span>
+                    </label>
+                    <label class="inline-flex items-center gap-1 cursor-pointer">
+                      <input type="radio" name="gender" value="Male" class="text-brand-600">
+                      <span>ஆண் / Male</span>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row sm:items-center gap-1">
+                  <label class="sm:w-2/5 font-semibold text-slate-700">திருமண நிலை / Marital :</label>
+                  <div class="sm:w-3/5 flex items-center gap-4">
+                    <label class="inline-flex items-center gap-1 cursor-pointer">
+                      <input type="radio" name="marital_status" value="Single" class="text-brand-600">
+                      <span>ஒற்றை / Single</span>
+                    </label>
+                    <label class="inline-flex items-center gap-1 cursor-pointer">
+                      <input type="radio" name="marital_status" value="Married" class="text-brand-600">
+                      <span>திருமணமானவர் / Married</span>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row sm:items-center gap-1">
+                  <label for="aadhaar" class="sm:w-2/5 font-semibold text-slate-700">ஆதார் எண் / Aadhaar :</label>
+                  <input type="text" id="aadhaar" name="aadhaar" maxlength="14" placeholder="12 Digit Aadhaar"
+                    class="sm:w-3/5 px-2.5 py-1.5 border border-slate-300 rounded focus:ring-2 focus:ring-sky-500">
+                </div>
+
+                <div class="flex flex-col sm:flex-row sm:items-center gap-1">
+                  <label for="phone" class="sm:w-2/5 font-semibold text-slate-700">தொலைபேசி எண் / Phone <span class="text-red-500">*</span> :</label>
+                  <input type="tel" id="phone" name="phone" required maxlength="12"
+                    class="sm:w-3/5 px-2.5 py-1.5 border border-slate-300 rounded focus:ring-2 focus:ring-sky-500 font-semibold">
+                </div>
+
+                <div class="flex flex-col sm:flex-row sm:items-center gap-1">
+                  <label for="alt_phone" class="sm:w-2/5 font-semibold text-slate-700">மாற்று எண் / Alt Phone :</label>
+                  <input type="tel" id="alt_phone" name="alt_phone" maxlength="12"
+                    class="sm:w-3/5 px-2.5 py-1.5 border border-slate-300 rounded focus:ring-2 focus:ring-sky-500">
+                </div>
+
+                <div class="flex flex-col sm:flex-row sm:items-center gap-1">
+                  <label for="email" class="sm:w-2/5 font-semibold text-slate-700">மின்னஞ்சல் / Email ID :</label>
+                  <input type="email" id="email" name="email"
+                    class="sm:w-3/5 px-2.5 py-1.5 border border-slate-300 rounded focus:ring-2 focus:ring-sky-500">
+                </div>
+
+              </div>
+            </div>
+
+            <!-- SECTION 2: ADDRESS DETAILS -->
+            <div class="border border-sky-300 rounded-xl overflow-hidden shadow-sm bg-white print-card">
+              <div class="bg-brand-800 text-white px-3 py-2 text-sm font-bold flex items-center gap-2 print-sub-bg">
+                <i data-lucide="home" class="w-4 h-4"></i>
+                2. முகவரி விவரங்கள் / ADDRESS DETAILS
+              </div>
+              
+              <div class="p-3.5 space-y-2.5 text-xs sm:text-sm">
+                <div class="flex flex-col sm:flex-row sm:items-center gap-1">
+                  <label for="door_no" class="sm:w-2/5 font-semibold text-slate-700">கதவு எண் / Door No. :</label>
+                  <input type="text" id="door_no" name="door_no"
+                    class="sm:w-3/5 px-2.5 py-1 border border-slate-300 rounded focus:ring-2 focus:ring-sky-500">
+                </div>
+
+                <div class="flex flex-col sm:flex-row sm:items-center gap-1">
+                  <label for="street" class="sm:w-2/5 font-semibold text-slate-700">தெரு / Street :</label>
+                  <input type="text" id="street" name="street"
+                    class="sm:w-3/5 px-2.5 py-1 border border-slate-300 rounded focus:ring-2 focus:ring-sky-500">
+                </div>
+
+                <div class="flex flex-col sm:flex-row sm:items-center gap-1">
+                  <label for="area" class="sm:w-2/5 font-semibold text-slate-700">பகுதி / Area :</label>
+                  <input type="text" id="area" name="area"
+                    class="sm:w-3/5 px-2.5 py-1 border border-slate-300 rounded focus:ring-2 focus:ring-sky-500">
+                </div>
+
+                <div class="flex flex-col sm:flex-row sm:items-center gap-1">
+                  <label for="landmark" class="sm:w-2/5 font-semibold text-slate-700">நிலக் குறிப்பு / Landmark :</label>
+                  <input type="text" id="landmark" name="landmark"
+                    class="sm:w-3/5 px-2.5 py-1 border border-slate-300 rounded focus:ring-2 focus:ring-sky-500">
+                </div>
+
+                <div class="flex flex-col sm:flex-row sm:items-center gap-1">
+                  <label for="city" class="sm:w-2/5 font-semibold text-slate-700">நகரம் / City / Town :</label>
+                  <input type="text" id="city" name="city"
+                    class="sm:w-3/5 px-2.5 py-1 border border-slate-300 rounded focus:ring-2 focus:ring-sky-500">
+                </div>
+
+                <div class="flex flex-col sm:flex-row sm:items-center gap-1">
+                  <label for="district" class="sm:w-2/5 font-semibold text-slate-700">மாவட்டம் / District :</label>
+                  <input type="text" id="district" name="district"
+                    class="sm:w-3/5 px-2.5 py-1 border border-slate-300 rounded focus:ring-2 focus:ring-sky-500">
+                </div>
+
+                <div class="flex flex-col sm:flex-row sm:items-center gap-1">
+                  <label for="state" class="sm:w-2/5 font-semibold text-slate-700">மாநிலம் / State :</label>
+                  <input type="text" id="state" name="state" value="தமிழ்நாடு / Tamil Nadu"
+                    class="sm:w-3/5 px-2.5 py-1 border border-slate-300 rounded focus:ring-2 focus:ring-sky-500">
+                </div>
+
+                <div class="flex flex-col sm:flex-row sm:items-center gap-1">
+                  <label class="sm:w-2/5 font-semibold text-slate-700">அஞ்சல் குறியீடு / Pincode :</label>
+                  <div class="sm:w-3/5 flex items-center gap-1">
+                    <input type="text" maxlength="1" class="pincode-digit" />
+                    <input type="text" maxlength="1" class="pincode-digit" />
+                    <input type="text" maxlength="1" class="pincode-digit" />
+                    <input type="text" maxlength="1" class="pincode-digit" />
+                    <input type="text" maxlength="1" class="pincode-digit" />
+                    <input type="text" maxlength="1" class="pincode-digit" />
+                    <input type="hidden" id="pincode_hidden" name="pincode" />
+                  </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row sm:items-center gap-1 pt-1">
+                  <label class="sm:w-2/5 font-semibold text-slate-700">வசிப்பது வகை / Residence :</label>
+                  <div class="sm:w-3/5 flex flex-wrap items-center gap-3">
+                    <label class="inline-flex items-center gap-1 cursor-pointer">
+                      <input type="radio" name="type_of_residence" value="Owned" class="text-brand-600">
+                      <span>சொந்த வீடு / Owned</span>
+                    </label>
+                    <label class="inline-flex items-center gap-1 cursor-pointer">
+                      <input type="radio" name="type_of_residence" value="Rented" class="text-brand-600">
+                      <span>வாடகை / Rented</span>
+                    </label>
+                    <label class="inline-flex items-center gap-1 cursor-pointer">
+                      <input type="radio" name="type_of_residence" value="Others" class="text-brand-600">
+                      <span>மற்றவை / Others</span>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row sm:items-center gap-1">
+                  <label for="years_at_address" class="sm:w-3/5 font-semibold text-slate-700">தற்போதைய முகவரியில் வசிக்கும் காலம் / Years :</label>
+                  <input type="text" id="years_at_address" name="years_at_address" placeholder="e.g. 5 Years"
+                    class="sm:w-2/5 px-2 py-1 border border-slate-300 rounded focus:ring-2 focus:ring-sky-500">
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
+          <!-- SECTION 3: FAMILY DETAILS -->
+          <div class="border border-sky-300 rounded-xl overflow-hidden shadow-sm bg-white print-card">
+            <div class="bg-brand-800 text-white px-3 py-2 text-sm font-bold flex items-center justify-between print-sub-bg">
+              <div class="flex items-center gap-2">
+                <i data-lucide="users" class="w-4 h-4"></i>
+                <span>3. குடும்ப உறுப்பினர்கள் விவரங்கள் / FAMILY DETAILS</span>
+              </div>
+              <button type="button" onclick="addFamilyRow()" class="no-print bg-sky-500 hover:bg-sky-400 text-white text-xs px-2.5 py-1 rounded font-bold transition-colors flex items-center gap-1">
+                + உறுப்பினர் சேர்க்க
+              </button>
+            </div>
+
+            <div class="overflow-x-auto p-2">
+              <table class="w-full text-xs text-left border-collapse">
+                <thead>
+                  <tr class="bg-sky-100 text-slate-800 font-bold border-b border-sky-300">
+                    <th class="p-2 text-center w-10">வ.எண்</th>
+                    <th class="p-2 min-w-[140px]">குடும்ப உறுப்பினர் பெயர் / Name</th>
+                    <th class="p-2 min-w-[110px]">உறவு / Relationship</th>
+                    <th class="p-2 w-16 text-center">வயது</th>
+                    <th class="p-2 min-w-[100px]">பாலினம் / Gender</th>
+                    <th class="p-2 min-w-[110px]">கல்வி தகுதி / Education</th>
+                    <th class="p-2 min-w-[120px]">தொழில் / Occupation</th>
+                    <th class="p-2 w-10 text-center no-print"></th>
+                  </tr>
+                </thead>
+                <tbody id="family-members-tbody">
+                </tbody>
+              </table>
+            </div>
+
+            <div class="p-3 bg-sky-50/50 border-t border-sky-200 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs sm:text-sm">
+              <label for="total_family_members" class="font-bold text-slate-700">
+                குடும்பத்தில் மொத்த உறுப்பினர்கள் எண்ணிக்கை / Total Number of Family Members :
+              </label>
+              <input type="number" id="total_family_members" name="total_family_members" min="1" max="20" value="5"
+                class="w-24 px-2 py-1 border border-slate-300 rounded font-bold text-center bg-white">
+            </div>
+          </div>
+
+          <!-- SECTION 4 & 5 -->
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+            <!-- SECTION 4: EDUCATION DETAILS -->
+            <div class="border border-sky-300 rounded-xl overflow-hidden shadow-sm bg-white print-card">
+              <div class="bg-brand-800 text-white px-3 py-2 text-sm font-bold flex items-center gap-2 print-sub-bg">
+                <i data-lucide="graduation-cap" class="w-4 h-4"></i>
+                4. கல்வி விவரங்கள் (விண்ணப்பதாரர்) / EDUCATION DETAILS
+              </div>
+              
+              <div class="p-3.5 space-y-2.5 text-xs sm:text-sm">
+                <div class="flex flex-col sm:flex-row sm:items-center gap-1">
+                  <label for="edu_qualification" class="sm:w-2/5 font-semibold text-slate-700">கல்வித் தகுதி / Qualification :</label>
+                  <input type="text" id="edu_qualification" name="edu_qualification" placeholder="e.g. 10th / 12th / Graduate"
+                    class="sm:w-3/5 px-2.5 py-1 border border-slate-300 rounded focus:ring-2 focus:ring-sky-500">
+                </div>
+
+                <div class="flex flex-col sm:flex-row sm:items-center gap-1">
+                  <label for="course_stream" class="sm:w-2/5 font-semibold text-slate-700">படிப்பு / Course / Stream :</label>
+                  <input type="text" id="course_stream" name="course_stream" placeholder="e.g. B.A / B.Sc / B.Com / ITI"
+                    class="sm:w-3/5 px-2.5 py-1 border border-slate-300 rounded focus:ring-2 focus:ring-sky-500">
+                </div>
+
+                <div class="flex flex-col sm:flex-row sm:items-center gap-1">
+                  <label for="institution_name" class="sm:w-2/5 font-semibold text-slate-700">கல்வி / கல்லூரி பெயர் / Institution :</label>
+                  <input type="text" id="institution_name" name="institution_name"
+                    class="sm:w-3/5 px-2.5 py-1 border border-slate-300 rounded focus:ring-2 focus:ring-sky-500">
+                </div>
+
+                <div class="flex flex-col sm:flex-row sm:items-center gap-1">
+                  <label for="year_completion" class="sm:w-2/5 font-semibold text-slate-700">படிப்பு முடித்த ஆண்டு / Year :</label>
+                  <input type="text" id="year_completion" name="year_completion" placeholder="e.g. 2018"
+                    class="sm:w-3/5 px-2.5 py-1 border border-slate-300 rounded focus:ring-2 focus:ring-sky-500">
+                </div>
+              </div>
+            </div>
+
+            <!-- SECTION 5: EMPLOYMENT DETAILS -->
+            <div class="border border-sky-300 rounded-xl overflow-hidden shadow-sm bg-white print-card">
+              <div class="bg-brand-800 text-white px-3 py-2 text-sm font-bold flex items-center gap-2 print-sub-bg">
+                <i data-lucide="briefcase" class="w-4 h-4"></i>
+                5. தொழில் / வாழ்வாதார விவரங்கள் / EMPLOYMENT DETAILS
+              </div>
+              
+              <div class="p-3.5 space-y-2 text-xs sm:text-sm">
+                <div class="flex flex-col sm:flex-row sm:items-center gap-1">
+                  <label for="occupation" class="sm:w-2/5 font-semibold text-slate-700">தொழில் / Work Type :</label>
+                  <input type="text" id="occupation" name="occupation"
+                    class="sm:w-3/5 px-2.5 py-1 border border-slate-300 rounded focus:ring-2 focus:ring-sky-500">
+                </div>
+
+                <div class="flex flex-col sm:flex-row sm:items-center gap-1">
+                  <label for="place_of_work" class="sm:w-2/5 font-semibold text-slate-700">பணியிடம் / Place of Work :</label>
+                  <input type="text" id="place_of_work" name="place_of_work"
+                    class="sm:w-3/5 px-2.5 py-1 border border-slate-300 rounded focus:ring-2 focus:ring-sky-500">
+                </div>
+
+                <div class="flex flex-col sm:flex-row sm:items-center gap-1 pt-1">
+                  <label class="sm:w-2/5 font-semibold text-slate-700">வேலை வகை / Type :</label>
+                  <div class="sm:w-3/5 flex flex-wrap gap-2 text-xs">
+                    <label class="inline-flex items-center gap-1 cursor-pointer">
+                      <input type="radio" name="employment_type" value="Employed" class="text-brand-600">
+                      <span>பணியாற்றுபவர் / Employed</span>
+                    </label>
+                    <label class="inline-flex items-center gap-1 cursor-pointer">
+                      <input type="radio" name="employment_type" value="Self Employed" class="text-brand-600">
+                      <span>சுய தொழில் / Self Employed</span>
+                    </label>
+                    <label class="inline-flex items-center gap-1 cursor-pointer">
+                      <input type="radio" name="employment_type" value="Unemployed" class="text-brand-600">
+                      <span>வேலையில்லை / Unemployed</span>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row sm:items-center gap-1">
+                  <label for="monthly_income" class="sm:w-3/5 font-semibold text-slate-700">மாத வருமானம் (மதிப்பீடு) / Monthly Income :</label>
+                  <div class="sm:w-2/5 flex items-center gap-1">
+                    <span class="font-bold text-slate-600">₹</span>
+                    <input type="text" id="monthly_income" name="monthly_income" placeholder="0.00"
+                      class="w-full px-2 py-1 border border-slate-300 rounded focus:ring-2 focus:ring-sky-500">
+                  </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row sm:items-center gap-1">
+                  <label for="other_income" class="sm:w-3/5 font-semibold text-slate-700">மற்ற வருமானம் (மதிப்பீடு) / Other Income :</label>
+                  <div class="sm:w-2/5 flex items-center gap-1">
+                    <span class="font-bold text-slate-600">₹</span>
+                    <input type="text" id="other_income" name="other_income" placeholder="0.00"
+                      class="w-full px-2 py-1 border border-slate-300 rounded focus:ring-2 focus:ring-sky-500">
+                  </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row sm:items-center gap-1">
+                  <label for="other_employment_specify" class="sm:w-2/5 font-semibold text-slate-700">ஏதேனும் விவரிக்கவும் / If Other :</label>
+                  <input type="text" id="other_employment_specify" name="other_employment_specify"
+                    class="sm:w-3/5 px-2.5 py-1 border border-slate-300 rounded focus:ring-2 focus:ring-sky-500">
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- SECTION 6: ASSISTANCE REQUIRED -->
+          <div class="border border-sky-300 rounded-xl overflow-hidden shadow-sm bg-white print-card">
+            <div class="bg-brand-800 text-white px-3 py-2 text-sm font-bold flex items-center gap-2 print-sub-bg">
+              <i data-lucide="heart-handshake" class="w-4 h-4"></i>
+              6. உதவி தேவைப்படும் வகை (✓) / ASSISTANCE REQUIRED (✓)
+            </div>
+
+            <div class="p-4 space-y-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs sm:text-sm font-medium">
+                <label class="flex items-center gap-2 p-2 rounded-lg border border-sky-100 hover:bg-sky-50 cursor-pointer">
+                  <input type="checkbox" id="assist_education" name="assistance[]" value="Education Support" class="w-4 h-4 text-brand-600 rounded">
+                  <span>கல்வி உதவி / Education Support</span>
+                </label>
+
+                <label class="flex items-center gap-2 p-2 rounded-lg border border-sky-100 hover:bg-sky-50 cursor-pointer">
+                  <input type="checkbox" id="assist_senior" name="assistance[]" value="Senior Citizen Support" class="w-4 h-4 text-brand-600 rounded">
+                  <span>மூத்த குடிமக்கள் உதவி / Senior Citizen</span>
+                </label>
+
+                <label class="flex items-center gap-2 p-2 rounded-lg border border-sky-100 hover:bg-sky-50 cursor-pointer">
+                  <input type="checkbox" id="assist_medical" name="assistance[]" value="Medical Support" class="w-4 h-4 text-brand-600 rounded">
+                  <span>மருத்துவ உதவி / Medical Support</span>
+                </label>
+
+                <label class="flex items-center gap-2 p-2 rounded-lg border border-sky-100 hover:bg-sky-50 cursor-pointer">
+                  <input type="checkbox" id="assist_children_education" name="assistance[]" value="Children Education Support" class="w-4 h-4 text-brand-600 rounded">
+                  <span>குழந்தைகள் கல்வி / Children Edu</span>
+                </label>
+
+                <label class="flex items-center gap-2 p-2 rounded-lg border border-sky-100 hover:bg-sky-50 cursor-pointer">
+                  <input type="checkbox" id="assist_livelihood" name="assistance[]" value="Livelihood Support" class="w-4 h-4 text-brand-600 rounded">
+                  <span>வாழ்வாதார உதவி / Livelihood</span>
+                </label>
+
+                <label class="flex items-center gap-2 p-2 rounded-lg border border-sky-100 hover:bg-sky-50 cursor-pointer">
+                  <input type="checkbox" id="assist_emergency" name="assistance[]" value="Emergency Assistance" class="w-4 h-4 text-brand-600 rounded">
+                  <span>அவசர உதவி / Emergency</span>
+                </label>
+
+                <label class="flex items-center gap-2 p-2 rounded-lg border border-sky-100 hover:bg-sky-50 cursor-pointer">
+                  <input type="checkbox" id="assist_widow" name="assistance[]" value="Widow Support" class="w-4 h-4 text-brand-600 rounded">
+                  <span>விதவை உதவி / Widow Support</span>
+                </label>
+
+                <label class="flex items-center gap-2 p-2 rounded-lg border border-sky-100 hover:bg-sky-50 cursor-pointer">
+                  <input type="checkbox" id="assist_other" name="assistance[]" value="Other" class="w-4 h-4 text-brand-600 rounded">
+                  <span>பிற / Other</span>
+                </label>
+              </div>
+
+              <div class="space-y-1">
+                <label for="assistance_description" class="block text-xs sm:text-sm font-semibold text-slate-700">
+                  உதவி தேவைகள் விவரம் / Brief Description of Requirement :
+                </label>
+                <textarea id="assistance_description" name="assistance_description" rows="2"
+                  placeholder="தேவைப்படும் உதவியின் விவரத்தை சுருக்கமாக எழுதுங்கள்..."
+                  class="w-full p-2.5 text-xs sm:text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-sky-500"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- SECTION 7: DOCUMENTS SUBMITTED -->
+          <div class="border border-sky-300 rounded-xl overflow-hidden shadow-sm bg-white print-card">
+            <div class="bg-brand-800 text-white px-3 py-2 text-sm font-bold flex items-center gap-2 print-sub-bg">
+              <i data-lucide="file-check" class="w-4 h-4"></i>
+              7. சமர்ப்பிக்கப்படும் ஆவணங்கள் (✓) / DOCUMENTS SUBMITTED (✓)
+            </div>
+
+            <div class="p-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 text-xs sm:text-sm font-medium">
+                <label class="flex items-center gap-2">
+                  <input type="checkbox" id="doc_aadhaar" name="documents[]" value="Aadhaar Card" class="w-4 h-4 text-brand-600 rounded">
+                  <span>ஆதார் அட்டை / Aadhaar Card</span>
+                </label>
+
+                <label class="flex items-center gap-2">
+                  <input type="checkbox" id="doc_passbook" name="documents[]" value="Bank Passbook" class="w-4 h-4 text-brand-600 rounded">
+                  <span>வங்கி புத்தகம் / Bank Passbook</span>
+                </label>
+
+                <label class="flex items-center gap-2">
+                  <input type="checkbox" id="doc_voter" name="documents[]" value="Voter ID" class="w-4 h-4 text-brand-600 rounded">
+                  <span>வாக்காளர் அட்டை / Voter ID</span>
+                </label>
+
+                <label class="flex items-center gap-2">
+                  <input type="checkbox" id="doc_edu_certs" name="documents[]" value="Educational Certificates" class="w-4 h-4 text-brand-600 rounded">
+                  <span>கல்வி சான்றிதழ்கள் / Education Certs</span>
+                </label>
+
+                <label class="flex items-center gap-2">
+                  <input type="checkbox" id="doc_income" name="documents[]" value="Income Certificate" class="w-4 h-4 text-brand-600 rounded">
+                  <span>வருமானச் சான்றிதழ் / Income Cert</span>
+                </label>
+
+                <label class="flex items-center gap-2">
+                  <input type="checkbox" id="doc_medical" name="documents[]" value="Medical Reports" class="w-4 h-4 text-brand-600 rounded">
+                  <span>மருத்துவ அறிக்கைகள் / Medical Reports</span>
+                </label>
+
+                <label class="flex items-center gap-2">
+                  <input type="checkbox" id="doc_address" name="documents[]" value="Address Proof" class="w-4 h-4 text-brand-600 rounded">
+                  <span>முகவரி சான்று / Address Proof</span>
+                </label>
+
+                <label class="flex items-center gap-2">
+                  <input type="checkbox" id="doc_photo" name="documents[]" value="Passport Size Photo" class="w-4 h-4 text-brand-600 rounded">
+                  <span>பாஸ்போர்ட் புகைப்படம் / Photo</span>
+                </label>
+
+                <label class="flex items-center gap-2">
+                  <input type="checkbox" id="doc_community" name="documents[]" value="Community Certificate" class="w-4 h-4 text-brand-600 rounded">
+                  <span>சமூகச் சான்றிதழ் / Community Cert</span>
+                </label>
+
+                <label class="flex items-center gap-2 sm:col-span-2">
+                  <input type="checkbox" id="doc_other" name="documents[]" value="Other" class="w-4 h-4 text-brand-600 rounded">
+                  <span>பிற (குறிப்பிடவும்) / Other</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- SECTION 8: DECLARATION -->
+          <div class="border border-sky-300 rounded-xl overflow-hidden shadow-sm bg-white print-card">
+            <div class="bg-brand-800 text-white px-3 py-2 text-sm font-bold flex items-center gap-2 print-sub-bg">
+              <i data-lucide="shield-alert" class="w-4 h-4"></i>
+              8. உறுதிமொழி / DECLARATION
+            </div>
+
+            <div class="p-4 space-y-4">
+              <p class="text-xs sm:text-sm text-slate-700 leading-relaxed font-medium bg-sky-50 p-3 rounded-lg border border-sky-200">
+                மேலே கொடுக்கப்பட்டுள்ள தகவல்கள் அனைத்தும் எனது அறிவிற்கு உண்மையானவை. தவறான தகவல் வழங்கப்பட்டால், உதவி ரத்து செய்யப்படும் / நிறுத்தப்படும் என்பதை புரிந்துக்கொண்டுள்ளேன்.
+              </p>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2 items-end">
+                <div class="space-y-1">
+                  <label for="declaration_date" class="block text-xs sm:text-sm font-bold text-slate-700">தேதி / Date :</label>
+                  <input type="date" id="declaration_date" name="declaration_date"
+                    class="w-full sm:w-2/3 px-3 py-1.5 border border-slate-300 rounded font-semibold text-xs sm:text-sm">
+                </div>
+
+                <div class="space-y-1 text-center sm:text-right">
+                  <div class="flex items-center justify-between sm:justify-end gap-2">
+                    <label class="text-xs sm:text-sm font-bold text-slate-700">விண்ணப்பதாரர் கையொப்பம் / Signature :</label>
+                    <button type="button" onclick="clearSignature()" class="no-print text-xs text-red-600 underline">அழி / Clear</button>
+                  </div>
+                  <div class="inline-block border-2 border-dashed border-slate-300 rounded bg-slate-50 overflow-hidden">
+                    <canvas id="signature-canvas" width="280" height="70" class="cursor-crosshair bg-white"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SECTION 9: FOR OFFICE USE ONLY -->
+          <div class="border-2 border-slate-400 bg-amber-50/40 rounded-xl overflow-hidden shadow-sm print-card">
+            <div class="bg-slate-800 text-white px-3 py-2 text-sm font-bold text-center tracking-wider uppercase">
+              அலுவலக பயன்பாட்டிற்கு மட்டும் / FOR OFFICE USE ONLY
+            </div>
+
+            <div class="p-4 space-y-3 text-xs sm:text-sm">
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div>
+                  <label for="office_app_no" class="block font-bold text-slate-700">Application No. :</label>
+                  <input type="text" id="office_app_no" name="office_app_no" placeholder="VPF-2026-XXXX"
+                    class="w-full px-2.5 py-1 border border-slate-300 rounded font-bold text-brand-800 bg-white">
+                </div>
+
+                <div>
+                  <label for="office_date_received" class="block font-bold text-slate-700">Date Received :</label>
+                  <input type="date" id="office_date_received" name="office_date_received"
+                    class="w-full px-2.5 py-1 border border-slate-300 rounded bg-white">
+                </div>
+
+                <div>
+                  <label for="office_verified_by" class="block font-bold text-slate-700">Verified By :</label>
+                  <input type="text" id="office_verified_by" name="office_verified_by"
+                    class="w-full px-2.5 py-1 border border-slate-300 rounded bg-white">
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 items-center pt-2">
+                <div>
+                  <label class="block font-bold text-slate-700 mb-1">Status :</label>
+                  <div class="flex items-center gap-3">
+                    <label class="inline-flex items-center gap-1 cursor-pointer">
+                      <input type="radio" name="office_status" value="Approved" class="text-emerald-600">
+                      <span class="font-semibold text-emerald-700">Approved</span>
+                    </label>
+                    <label class="inline-flex items-center gap-1 cursor-pointer">
+                      <input type="radio" name="office_status" value="Pending" class="text-amber-600">
+                      <span class="font-semibold text-amber-700">Pending</span>
+                    </label>
+                    <label class="inline-flex items-center gap-1 cursor-pointer">
+                      <input type="radio" name="office_status" value="Rejected" class="text-red-600">
+                      <span class="font-semibold text-red-700">Rejected</span>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="sm:col-span-2">
+                  <label for="office_remarks" class="block font-bold text-slate-700">Remarks :</label>
+                  <input type="text" id="office_remarks" name="office_remarks" placeholder="அலுவலக குறிப்புகள்..."
+                    class="w-full px-2.5 py-1 border border-slate-300 rounded bg-white">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- BOTTOM ACTION BUTTONS -->
+          <div class="pt-4 flex flex-wrap items-center justify-between gap-4 border-t border-slate-200 no-print">
+            <button type="button" onclick="showHomePage()" class="px-5 py-2.5 rounded-lg border border-slate-300 hover:bg-slate-100 text-slate-700 font-semibold text-sm transition-colors flex items-center gap-1.5">
+              ← முகப்பு / Home
+            </button>
+
+            <div class="flex flex-wrap items-center gap-3">
+              <button type="button" onclick="printForm()" class="px-5 py-2.5 rounded-lg bg-sky-100 hover:bg-sky-200 text-brand-800 font-bold text-sm transition-colors flex items-center gap-1.5">
+                <i data-lucide="printer" class="w-4 h-4"></i>
+                அச்சிடுக / Print
+              </button>
+
+              <button type="button" onclick="downloadPDF()" class="px-5 py-2.5 rounded-lg bg-brand-700 hover:bg-brand-800 text-white font-bold text-sm shadow transition-colors flex items-center gap-1.5">
+                <i data-lucide="download" class="w-4 h-4"></i>
+                PDF பதிவிறக்கு
+              </button>
+
+              <button type="submit" class="px-7 py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5 flex items-center gap-1.5">
+                <i data-lucide="send" class="w-4 h-4"></i>
+                சமர்ப்பிக்க / Submit Form
+              </button>
+            </div>
+          </div>
+
+        </form>
+
+      </div>
+    </section>
+
+    <!-- ==================== PAGE 3: ADMIN PORTAL & TABLE VIEW ==================== -->
+    <section id="admin-page" class="hidden w-full py-8 px-4 no-print">
+      <div class="max-w-6xl mx-auto space-y-6">
+
+        <!-- ADMIN LOGIN CARD (Protected View) -->
+        <div id="admin-login-card" class="max-w-md mx-auto bg-white p-8 rounded-2xl shadow-xl border border-sky-200 space-y-6">
+          <div class="text-center space-y-2">
+            <img src="assets/logo.png" alt="V People Logo" class="w-16 h-16 rounded-full bg-white object-contain mx-auto p-1 border-2 border-amber-400 shadow-md" />
+            <h3 class="text-2xl font-extrabold text-brand-900">நிர்வாகி உள்நுழைவு</h3>
+            <p class="text-xs text-slate-500">Admin Authentication Guard</p>
+          </div>
+
+          <form id="admin-login-form" class="space-y-4">
+            <div>
+              <label for="admin_username" class="block text-xs font-bold text-slate-700 mb-1">பயனர் பெயர் / Username :</label>
+              <input type="text" id="admin_username" required placeholder="admin"
+                class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-sky-500">
+            </div>
+
+            <div>
+              <label for="admin_password" class="block text-xs font-bold text-slate-700 mb-1">கடவுச்சொல் / Password :</label>
+              <input type="password" id="admin_password" required placeholder="••••••••"
+                class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-sky-500">
+            </div>
+
+            <div id="admin-login-error" class="hidden text-xs text-red-600 font-bold text-center"></div>
+
+            <button type="submit" class="w-full py-3 rounded-xl bg-brand-700 hover:bg-brand-800 text-white font-bold text-sm shadow-md transition-colors flex items-center justify-center gap-2">
+              <i data-lucide="log-in" class="w-4 h-4"></i>
+              உள்நுழைக / Login
+            </button>
+          </form>
+        </div>
+
+        <!-- ADMIN DASHBOARD & SUBMISSIONS TABLE (Authenticated View) -->
+        <div id="admin-dashboard-view" class="hidden space-y-6">
+          
+          <!-- Header Bar -->
+          <div class="bg-white p-5 rounded-2xl shadow-md border border-sky-200 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+              <img src="assets/logo.png" alt="V People Logo" class="w-12 h-12 rounded-full bg-white object-contain p-0.5 border border-amber-400 shadow shrink-0" />
+              <div>
+                <h2 class="text-2xl font-extrabold text-brand-900 flex items-center gap-2">
+                  விண்ணப்பங்கள் மேலாண்மை / Admin Submissions Dashboard
+                </h2>
+                <p class="text-xs text-slate-600">சமர்ப்பிக்கப்பட்ட அனைத்து பயனாளி விண்ணப்பங்களின் அட்டவணை</p>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-3">
+              <button onclick="printAllSubmissions()" class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs sm:text-sm shadow transition-colors flex items-center gap-2">
+                <i data-lucide="printer" class="w-4 h-4"></i>
+                Print All Entries (அனைத்தும் பிரிண்ட்)
+              </button>
+
+              <button onclick="exportCSV()" class="px-4 py-2.5 rounded-xl bg-brand-700 hover:bg-brand-800 text-white font-bold text-xs sm:text-sm shadow transition-colors flex items-center gap-2">
+                <i data-lucide="file-spreadsheet" class="w-4 h-4"></i>
+                Export CSV
+              </button>
+
+              <button onclick="handleAdminLogout()" class="px-3.5 py-2.5 rounded-xl border border-slate-300 hover:bg-slate-100 text-slate-700 font-bold text-xs sm:text-sm transition-colors flex items-center gap-1.5">
+                <i data-lucide="log-out" class="w-4 h-4 text-red-500"></i>
+                Logout
+              </button>
+            </div>
+          </div>
+
+          <!-- Metrics Summary Cards -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div class="bg-white p-4 rounded-xl border border-sky-200 shadow-sm space-y-1">
+              <span class="text-xs text-slate-500 font-medium">மொத்த விண்ணப்பங்கள் / Total Applications</span>
+              <div id="stat-total" class="text-2xl font-extrabold text-brand-800">0</div>
+            </div>
+
+            <div class="bg-white p-4 rounded-xl border border-sky-200 shadow-sm space-y-1">
+              <span class="text-xs text-slate-500 font-medium">கல்வி உதவி கோரிக்கைகள் / Education Requests</span>
+              <div id="stat-education" class="text-2xl font-extrabold text-brand-600">0</div>
+            </div>
+
+            <div class="bg-white p-4 rounded-xl border border-sky-200 shadow-sm space-y-1">
+              <span class="text-xs text-slate-500 font-medium">மருத்துவ உதவி கோரிக்கைகள் / Medical Requests</span>
+              <div id="stat-medical" class="text-2xl font-extrabold text-emerald-600">0</div>
+            </div>
+          </div>
+
+          <!-- Controls Bar (Search) -->
+          <div class="bg-white p-4 rounded-xl border border-sky-200 shadow-sm flex items-center justify-between gap-4">
+            <div class="relative w-full sm:w-96">
+              <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-3"></i>
+              <input type="text" id="admin-search" placeholder="Search Name, Phone, App No, District..."
+                class="w-full pl-9 pr-3 py-2 border border-slate-300 rounded-lg text-xs sm:text-sm focus:ring-2 focus:ring-sky-500">
+            </div>
+          </div>
+
+          <!-- SUBMISSIONS DATA TABLE -->
+          <div class="bg-white rounded-2xl shadow-lg border border-sky-200 overflow-hidden">
+            <div class="overflow-x-auto">
+              <table class="w-full text-xs sm:text-sm text-left border-collapse">
+                <thead>
+                  <tr class="bg-brand-900 text-white font-bold">
+                    <th class="p-3 text-center w-12">#</th>
+                    <th class="p-3 min-w-[140px]">App No</th>
+                    <th class="p-3 min-w-[180px]">விண்ணப்பதாரர் பெயர் / Applicant</th>
+                    <th class="p-3 min-w-[110px]">தேதி / Date</th>
+                    <th class="p-3 min-w-[180px]">உதவி வகை / Assistance</th>
+                    <th class="p-3 text-center min-w-[200px]">செயல்கள் / Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-submissions-tbody">
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MULTI-RECORD PRINT ALL CONTAINER -->
+  <div id="print-all-records-view" class="hidden"></div>
+
+  <!-- FOOTER -->
+  <footer class="bg-brand-900 text-white py-6 border-t border-sky-800 no-print mt-12">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-sky-200">
+      <div class="flex items-center gap-3 text-center md:text-left">
+        <img src="assets/logo.png" alt="V People Logo" class="w-10 h-10 rounded-full bg-white object-contain p-0.5 border border-amber-400 shadow shrink-0" />
+        <div>
+          <p class="font-bold text-sm text-white">V PEOPLE FOUNDATION</p>
+          <p class="text-sky-300">மக்களுக்காக. மக்களுடன். மக்களால்.</p>
+        </div>
+      </div>
+
+      <div class="text-center md:text-right space-y-1">
+        <p>NO.26 X BLOCK, R.V.NAGAR, JAFFERKHANPET, CHENNAI - 600083</p>
+        <p>Phone: 9940100126 | Email: vpeoplefoundation@gmail.com</p>
+        <p class="text-sky-400 text-[10px] pt-1">© 2026 V People Foundation. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SUCCESS MODAL -->
+  <div id="success-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm no-print">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4 border border-sky-200 transform transition-all text-center">
+      <img src="assets/logo.png" alt="V People Logo" class="w-16 h-16 rounded-full bg-white object-contain mx-auto p-1 border-2 border-amber-400 shadow-md" />
+
+      <h3 class="text-xl font-extrabold text-slate-800">படிவம் வெற்றிகரமாக சமர்ப்பிக்கப்பட்டது!</h3>
+      <p class="text-xs text-slate-600">Application Submitted Successfully!</p>
+
+      <div class="bg-sky-50 rounded-xl p-4 text-left text-xs space-y-2 border border-sky-100">
+        <div class="flex justify-between">
+          <span class="text-slate-500 font-medium">Application Reference No:</span>
+          <span id="modal-app-no" class="font-bold text-brand-800">VPF-2026-8942</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-slate-500 font-medium">Applicant Name:</span>
+          <span id="modal-name" class="font-bold text-slate-800">-</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-slate-500 font-medium">Phone Number:</span>
+          <span id="modal-phone" class="font-bold text-slate-800">-</span>
+        </div>
+      </div>
+
+      <div class="pt-2 flex flex-col sm:flex-row gap-2">
+        <button onclick="downloadPDF(); closeSuccessModal();" class="w-full py-2.5 rounded-xl bg-brand-700 hover:bg-brand-800 text-white font-bold text-sm shadow transition-colors flex items-center justify-center gap-1.5">
+          <i data-lucide="download" class="w-4 h-4"></i>
+          Download PDF
+        </button>
+        <button onclick="closeSuccessModal()" class="w-full py-2.5 rounded-xl border border-slate-300 hover:bg-slate-100 text-slate-700 font-semibold text-sm transition-colors">
+          மூடுக / Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- App Script -->
+  <script src="js/app.js"></script>
+</body>
+</html>
