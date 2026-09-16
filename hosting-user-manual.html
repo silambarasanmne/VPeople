@@ -1,0 +1,1731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Website Hosting & Domain Setup - User Manual</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #1e40af;
+      --primary-light: #3b82f6;
+      --primary-bg: #eff6ff;
+      --accent: #f59e0b;
+      --accent-bg: #fffbeb;
+      --success: #059669;
+      --success-bg: #ecfdf5;
+      --danger: #dc2626;
+      --danger-bg: #fef2f2;
+      --warning: #d97706;
+      --warning-bg: #fffbeb;
+      --text: #1e293b;
+      --text-secondary: #475569;
+      --text-muted: #94a3b8;
+      --border: #e2e8f0;
+      --bg: #ffffff;
+      --bg-alt: #f8fafc;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--text);
+      line-height: 1.7;
+      background: var(--bg);
+      font-size: 14px;
+    }
+
+    @media print {
+      body { font-size: 11pt; }
+      .no-print { display: none !important; }
+      .page-break { page-break-before: always; }
+      .chapter { page-break-inside: avoid; }
+      .step-card { page-break-inside: avoid; }
+    }
+
+    /* Print Button */
+    .print-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(135deg, #1e40af, #3b82f6);
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 1000;
+      box-shadow: 0 4px 20px rgba(30, 64, 175, 0.3);
+    }
+
+    .print-bar h3 {
+      color: white;
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .print-bar button {
+      background: #f59e0b;
+      color: #1e293b;
+      border: none;
+      padding: 10px 28px;
+      border-radius: 8px;
+      font-weight: 800;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .print-bar button:hover {
+      background: #fbbf24;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+    }
+
+    /* Container */
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 80px 32px 60px;
+    }
+
+    /* Cover Page */
+    .cover {
+      text-align: center;
+      padding: 80px 20px;
+      background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 30%, #2563eb 60%, #3b82f6 100%);
+      color: white;
+      border-radius: 16px;
+      margin-bottom: 50px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cover::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -30%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(251, 191, 36, 0.15) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .cover-icon {
+      font-size: 64px;
+      margin-bottom: 20px;
+      display: inline-block;
+    }
+
+    .cover h1 {
+      font-size: 36px;
+      font-weight: 900;
+      letter-spacing: -1px;
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+
+    .cover h2 {
+      font-size: 18px;
+      font-weight: 400;
+      color: #93c5fd;
+      margin-bottom: 30px;
+    }
+
+    .cover-meta {
+      display: inline-flex;
+      gap: 24px;
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+      padding: 14px 28px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.15);
+      font-size: 13px;
+      color: #bfdbfe;
+    }
+
+    .cover-meta strong {
+      color: #fbbf24;
+      display: block;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 2px;
+    }
+
+    /* Table of Contents */
+    .toc {
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px;
+      margin-bottom: 50px;
+    }
+
+    .toc h2 {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .toc-list {
+      list-style: none;
+      counter-reset: toc-counter;
+    }
+
+    .toc-list li {
+      counter-increment: toc-counter;
+      padding: 10px 0;
+      border-bottom: 1px dashed var(--border);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .toc-list li:last-child { border-bottom: none; }
+
+    .toc-list li::before {
+      content: counter(toc-counter, decimal-leading-zero);
+      background: var(--primary);
+      color: white;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 13px;
+      flex-shrink: 0;
+    }
+
+    .toc-list li span {
+      font-weight: 600;
+      color: var(--text);
+      font-size: 14px;
+    }
+
+    .toc-list li .toc-desc {
+      font-weight: 400;
+      color: var(--text-secondary);
+      font-size: 12px;
+      display: block;
+    }
+
+    /* Chapters */
+    .chapter {
+      margin-bottom: 50px;
+    }
+
+    .chapter-header {
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      color: white;
+      padding: 24px 28px;
+      border-radius: 12px 12px 0 0;
+      position: relative;
+    }
+
+    .chapter-number {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #93c5fd;
+      margin-bottom: 4px;
+    }
+
+    .chapter-header h2 {
+      font-size: 24px;
+      font-weight: 800;
+    }
+
+    .chapter-header p {
+      font-size: 13px;
+      color: #bfdbfe;
+      margin-top: 6px;
+    }
+
+    .chapter-body {
+      border: 1px solid var(--border);
+      border-top: none;
+      border-radius: 0 0 12px 12px;
+      padding: 28px;
+      background: var(--bg);
+    }
+
+    /* Step Cards */
+    .step-card {
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+
+    .step-header {
+      background: white;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .step-num {
+      background: var(--primary);
+      color: white;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 13px;
+      flex-shrink: 0;
+    }
+
+    .step-header h4 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .step-body {
+      padding: 16px 18px;
+    }
+
+    .step-body p {
+      margin-bottom: 10px;
+      color: var(--text-secondary);
+      font-size: 13px;
+    }
+
+    .step-body ul, .step-body ol {
+      margin-left: 20px;
+      margin-bottom: 12px;
+    }
+
+    .step-body li {
+      margin-bottom: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+    }
+
+    /* Info Boxes */
+    .info-box {
+      padding: 14px 16px;
+      border-radius: 8px;
+      margin: 16px 0;
+      font-size: 13px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .info-box.tip {
+      background: var(--success-bg);
+      border: 1px solid #a7f3d0;
+      color: #065f46;
+    }
+
+    .info-box.warning {
+      background: var(--warning-bg);
+      border: 1px solid #fde68a;
+      color: #92400e;
+    }
+
+    .info-box.danger {
+      background: var(--danger-bg);
+      border: 1px solid #fca5a5;
+      color: #991b1b;
+    }
+
+    .info-box.note {
+      background: var(--primary-bg);
+      border: 1px solid #bfdbfe;
+      color: #1e3a8a;
+    }
+
+    .info-icon {
+      font-size: 18px;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+
+    /* Tables */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0;
+      font-size: 13px;
+    }
+
+    .data-table th {
+      background: var(--primary);
+      color: white;
+      padding: 10px 14px;
+      text-align: left;
+      font-weight: 700;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .data-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-secondary);
+    }
+
+    .data-table tr:nth-child(even) td {
+      background: var(--bg-alt);
+    }
+
+    .data-table code {
+      background: #e0e7ff;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--primary);
+      font-weight: 500;
+    }
+
+    /* Code Blocks */
+    .code-block {
+      background: #1e293b;
+      color: #e2e8f0;
+      padding: 16px 20px;
+      border-radius: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      margin: 12px 0;
+      overflow-x: auto;
+      line-height: 1.8;
+      border: 1px solid #334155;
+    }
+
+    .code-block .comment {
+      color: #64748b;
+    }
+
+    .code-block .keyword {
+      color: #f59e0b;
+    }
+
+    .code-block .value {
+      color: #34d399;
+    }
+
+    /* Navigation Path */
+    .nav-path {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #f1f5f9;
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--primary);
+      margin: 8px 0;
+      border: 1px solid #e2e8f0;
+    }
+
+    .nav-path .arrow {
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    /* Checkbox List */
+    .checklist {
+      list-style: none;
+      margin: 12px 0;
+    }
+
+    .checklist li {
+      padding: 8px 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .checklist li:last-child { border-bottom: none; }
+
+    .check-icon {
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      border: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 11px;
+    }
+
+    .check-icon.checked {
+      background: var(--success);
+      border-color: var(--success);
+      color: white;
+    }
+
+    /* Numbered Flow */
+    .flow-steps {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      margin: 20px 0;
+      flex-wrap: wrap;
+    }
+
+    .flow-step {
+      background: var(--primary-bg);
+      border: 1px solid #bfdbfe;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--primary);
+      text-align: center;
+    }
+
+    .flow-arrow {
+      color: var(--text-muted);
+      font-size: 16px;
+    }
+
+    /* Section Divider */
+    .divider {
+      border: none;
+      border-top: 2px dashed var(--border);
+      margin: 30px 0;
+    }
+
+    /* Highlight */
+    .highlight {
+      background: linear-gradient(120deg, #fef3c7 0%, #fde68a 100%);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    /* Summary Box */
+    .summary-box {
+      background: linear-gradient(135deg, #f0fdf4, #ecfdf5);
+      border: 2px solid #86efac;
+      border-radius: 12px;
+      padding: 24px;
+      margin: 20px 0;
+    }
+
+    .summary-box h3 {
+      color: #065f46;
+      font-size: 16px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Footer */
+    .manual-footer {
+      text-align: center;
+      padding: 30px;
+      color: var(--text-muted);
+      font-size: 12px;
+      border-top: 1px solid var(--border);
+      margin-top: 40px;
+    }
+
+    .manual-footer strong {
+      color: var(--primary);
+    }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      .container { padding: 70px 16px 40px; }
+      .cover { padding: 50px 16px; }
+      .cover h1 { font-size: 26px; }
+      .cover-meta { flex-direction: column; gap: 12px; }
+      .flow-steps { flex-direction: column; }
+      .flow-arrow { transform: rotate(90deg); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- PRINT BAR -->
+  <div class="print-bar no-print">
+    <h3>📖 Website Hosting User Manual</h3>
+    <button onclick="window.print()">📄 Save as PDF / Print</button>
+  </div>
+
+  <div class="container">
+
+    <!-- ===================== COVER PAGE ===================== -->
+    <div class="cover">
+      <div class="cover-icon">🌐</div>
+      <h1>Website Hosting &<br>Domain Setup</h1>
+      <h2>Complete Step-by-Step User Manual</h2>
+      <p style="font-size: 14px; color: #93c5fd; margin-bottom: 24px;">
+        Domain Registration on BigRock &bull; Web Hosting on MrHost (Plesk) &bull; SSL &bull; Git Deployment
+      </p>
+      <div class="cover-meta">
+        <div>
+          <strong>Domain Provider</strong>
+          BigRock.in
+        </div>
+        <div>
+          <strong>Hosting Provider</strong>
+          MrHost (Plesk Panel)
+        </div>
+        <div>
+          <strong>Version</strong>
+          1.0 — Sept 2026
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== OVERVIEW FLOW ===================== -->
+    <div style="text-align: center; margin-bottom: 40px;">
+      <h3 style="color: var(--primary); margin-bottom: 16px; font-size: 16px;">🗺️ Complete Hosting Workflow Overview</h3>
+      <div class="flow-steps">
+        <div class="flow-step">① Buy Domain<br><small>BigRock</small></div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">② Get Hosting<br><small>MrHost / Plesk</small></div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">③ Connect DNS<br><small>Nameservers</small></div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">④ Upload Files<br><small>Git / FTP</small></div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">⑤ SSL Certificate<br><small>Let's Encrypt</small></div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">⑥ Go Live! 🚀<br><small>HTTPS</small></div>
+      </div>
+    </div>
+
+    <!-- ===================== TABLE OF CONTENTS ===================== -->
+    <div class="toc">
+      <h2>📑 Table of Contents</h2>
+      <ul class="toc-list">
+        <li>
+          <span>Prerequisites & Requirements<br><span class="toc-desc">What you need before starting</span></span>
+        </li>
+        <li>
+          <span>Register a Domain on BigRock<br><span class="toc-desc">Purchase and manage your domain name</span></span>
+        </li>
+        <li>
+          <span>Set Up Hosting Account on MrHost<br><span class="toc-desc">Plesk control panel login and overview</span></span>
+        </li>
+        <li>
+          <span>Connect Domain to Hosting (DNS Setup)<br><span class="toc-desc">Point your BigRock domain to MrHost server</span></span>
+        </li>
+        <li>
+          <span>Add Domain in Plesk Panel<br><span class="toc-desc">Configure domain in hosting control panel</span></span>
+        </li>
+        <li>
+          <span>Deploy Website Files via Git<br><span class="toc-desc">Push code from GitHub to live server</span></span>
+        </li>
+        <li>
+          <span>Install SSL Certificate (HTTPS)<br><span class="toc-desc">Secure your site with free Let's Encrypt SSL</span></span>
+        </li>
+        <li>
+          <span>Set Up HTTP to HTTPS Redirect<br><span class="toc-desc">Force all traffic through secure HTTPS</span></span>
+        </li>
+        <li>
+          <span>Verify & Test Your Website<br><span class="toc-desc">Final checks and testing procedures</span></span>
+        </li>
+        <li>
+          <span>Troubleshooting & FAQ<br><span class="toc-desc">Common issues and solutions</span></span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- ===================== CHAPTER 1 ===================== -->
+    <div class="chapter">
+      <div class="chapter-header">
+        <div class="chapter-number">Chapter 01</div>
+        <h2>Prerequisites & Requirements</h2>
+        <p>What you need before you begin the hosting setup process</p>
+      </div>
+      <div class="chapter-body">
+        <p style="margin-bottom: 16px;">Before setting up your website hosting, make sure you have the following ready:</p>
+        
+        <ul class="checklist">
+          <li>
+            <span class="check-icon checked">✓</span>
+            <div><strong>Domain Name</strong> — A registered domain (e.g., yourdomain.com) from BigRock</div>
+          </li>
+          <li>
+            <span class="check-icon checked">✓</span>
+            <div><strong>Hosting Account</strong> — An active hosting plan from MrHost (Plesk-based)</div>
+          </li>
+          <li>
+            <span class="check-icon checked">✓</span>
+            <div><strong>Hosting Login Credentials</strong> — Plesk URL, username, and password from MrHost</div>
+          </li>
+          <li>
+            <span class="check-icon checked">✓</span>
+            <div><strong>BigRock Login Credentials</strong> — Email and password for your BigRock account</div>
+          </li>
+          <li>
+            <span class="check-icon checked">✓</span>
+            <div><strong>Website Files</strong> — Your project code (HTML, CSS, JS, PHP, etc.) ready for deployment</div>
+          </li>
+          <li>
+            <span class="check-icon checked">✓</span>
+            <div><strong>GitHub Repository</strong> (Optional) — If deploying via Git, push your code to GitHub first</div>
+          </li>
+        </ul>
+
+        <div class="info-box note">
+          <span class="info-icon">ℹ️</span>
+          <div>
+            <strong>Hosting Credentials Example (from MrHost):</strong><br>
+            Plesk URL: <code>http://YOUR_SERVER_IP:8880/login_up.php</code><br>
+            Username & Password: Provided by MrHost via email<br>
+            Nameserver 1: <code>ns1.server.ayiarak.in</code><br>
+            Nameserver 2: <code>ns2.server.ayiarak.in</code>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== CHAPTER 2 ===================== -->
+    <div class="chapter page-break">
+      <div class="chapter-header">
+        <div class="chapter-number">Chapter 02</div>
+        <h2>Register a Domain on BigRock</h2>
+        <p>How to purchase and manage your domain name at bigrock.in</p>
+      </div>
+      <div class="chapter-body">
+
+        <div class="step-card">
+          <div class="step-header">
+            <div class="step-num">1</div>
+            <h4>Go to BigRock Website</h4>
+          </div>
+          <div class="step-body">
+            <p>Open your browser and navigate to:</p>
+            <div class="code-block">
+              <span class="value">https://www.bigrock.in</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-header">
+            <div class="step-num">2</div>
+            <h4>Search for Your Domain</h4>
+          </div>
+          <div class="step-body">
+            <p>In the search bar on the homepage:</p>
+            <ol>
+              <li>Type your desired domain name (e.g., <strong>yourdomain.com</strong>)</li>
+              <li>Click <strong>"Search"</strong></li>
+              <li>BigRock will show if the domain is available</li>
+              <li>Select the domain extension you want (<code>.com</code>, <code>.in</code>, <code>.org</code>, etc.)</li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-header">
+            <div class="step-num">3</div>
+            <h4>Purchase the Domain</h4>
+          </div>
+          <div class="step-body">
+            <ol>
+              <li>Click <strong>"Add to Cart"</strong> next to your chosen domain</li>
+              <li>Choose registration period (1 year, 2 years, etc.)</li>
+              <li>Review the cart and click <strong>"Proceed to Checkout"</strong></li>
+              <li>Create a BigRock account (or log in if you already have one)</li>
+              <li>Complete payment via Credit Card / Debit Card / UPI / Net Banking</li>
+            </ol>
+            <div class="info-box tip">
+              <span class="info-icon">💡</span>
+              <div><strong>Tip:</strong> Skip any additional add-ons (hosting, email, etc.) offered during checkout — you already have hosting from MrHost.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-header">
+            <div class="step-num">4</div>
+            <h4>Access Your Domain Management</h4>
+          </div>
+          <div class="step-body">
+            <p>After purchase, manage your domain:</p>
+            <div class="code-block">
+              <span class="value">https://myorders.bigrock.in</span>
+            </div>
+            <p>Log in with your BigRock email and password. You will see your domain listed under <strong>"My Orders"</strong>.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ===================== CHAPTER 3 ===================== -->
+    <div class="chapter page-break">
+      <div class="chapter-header">
+        <div class="chapter-number">Chapter 03</div>
+        <h2>Set Up Hosting Account on MrHost</h2>
+        <p>Log in to your Plesk control panel and understand the dashboard</p>
+      </div>
+      <div class="chapter-body">
+
+        <div class="step-card">
+          <div class="step-header">
+            <div class="step-num">1</div>
+            <h4>Log in to Plesk Control Panel</h4>
+          </div>
+          <div class="step-body">
+            <p>Use the credentials provided by MrHost:</p>
+            <table class="data-table">
+              <tr>
+                <th>Field</th>
+                <th>Value</th>
+              </tr>
+              <tr>
+                <td><strong>Plesk URL</strong></td>
+                <td><code>http://YOUR_SERVER_IP:8880/login_up.php</code></td>
+              </tr>
+              <tr>
+                <td><strong>Username</strong></td>
+                <td>Your MrHost username</td>
+              </tr>
+              <tr>
+                <td><strong>Password</strong></td>
+                <td>Your MrHost password</td>
+              </tr>
+            </table>
+            <div class="info-box danger">
+              <span class="info-icon">🔐</span>
+              <div><strong>Security:</strong> Change your password immediately after first login. Go to <em>My Profile → Change Password</em> in Plesk.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-header">
+            <div class="step-num">2</div>
+            <h4>Understand the Plesk Dashboard</h4>
+          </div>
+          <div class="step-body">
+            <p>After logging in, you'll see the main Plesk dashboard with these key sections:</p>
+            <table class="data-table">
+              <tr>
+                <th>Section</th>
+                <th>Purpose</th>
+              </tr>
+              <tr>
+                <td><strong>Websites & Domains</strong></td>
+                <td>Manage domains, subdomains, and hosting settings</td>
+              </tr>
+              <tr>
+                <td><strong>Files</strong></td>
+                <td>File Manager — upload, edit, and manage website files</td>
+              </tr>
+              <tr>
+                <td><strong>Databases</strong></td>
+                <td>Create and manage MySQL / PostgreSQL databases</td>
+              </tr>
+              <tr>
+                <td><strong>Mail</strong></td>
+                <td>Set up email accounts for your domain</td>
+              </tr>
+              <tr>
+                <td><strong>SSL/TLS Certificates</strong></td>
+                <td>Install and manage SSL certificates</td>
+              </tr>
+              <tr>
+                <td><strong>Git</strong></td>
+                <td>Deploy code directly from GitHub/GitLab</td>
+              </tr>
+              <tr>
+                <td><strong>FTP</strong></td>
+                <td>FTP connection details for file upload</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-header">
+            <div class="step-num">3</div>
+            <h4>Note Your Server Details</h4>
+          </div>
+          <div class="step-body">
+            <p>Find and save these important details from Plesk (you'll need them later):</p>
+            <table class="data-table">
+              <tr>
+                <th>Detail</th>
+                <th>Where to Find</th>
+              </tr>
+              <tr>
+                <td><strong>Server IP Address</strong></td>
+                <td>Shown next to your domain in Websites & Domains</td>
+              </tr>
+              <tr>
+                <td><strong>System User</strong></td>
+                <td>Shown under domain details</td>
+              </tr>
+              <tr>
+                <td><strong>Document Root</strong></td>
+                <td>Hosting Settings → Document Root field</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ===================== CHAPTER 4 ===================== -->
+    <div class="chapter page-break">
+      <div class="chapter-header">
+        <div class="chapter-number">Chapter 04</div>
+        <h2>Connect Domain to Hosting (DNS Setup)</h2>
+        <p>Point your BigRock domain to MrHost server using nameservers</p>
+      </div>
+      <div class="chapter-body">
+
+        <div class="info-box warning">
+          <span class="info-icon">⚠️</span>
+          <div><strong>Important:</strong> This is the most critical step. Without this, your domain won't connect to your hosting server. You have <strong>2 options</strong> — choose one.</div>
+        </div>
+
+        <h3 style="color: var(--primary); margin: 20px 0 12px; font-size: 16px;">Option A: Change Nameservers (Recommended)</h3>
+        <p style="color: var(--text-secondary); margin-bottom: 16px;">This hands over full DNS control to your hosting provider.</p>
+
+        <div class="step-card">
+          <div class="step-header">
+            <div class="step-num">1</div>
+            <h4>Log in to BigRock</h4>
+          </div>
+          <div class="step-body">
+            <p>Go to <code>https://myorders.bigrock.in</code> and log in.</p>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-header">
+            <div class="step-num">2</div>
+            <h4>Open Domain Settings</h4>
+          </div>
+          <div class="step-body">
+            <p>Click on your domain name to open the management page.</p>
+            <div class="nav-path">
+              My Orders <span class="arrow">→</span> yourdomain.com <span class="arrow">→</span> Name Servers & DNS
+            </div>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-header">
+            <div class="step-num">3</div>
+            <h4>Update Nameservers</h4>
+          </div>
+          <div class="step-body">
+            <p>Replace the existing BigRock nameservers with MrHost nameservers:</p>
+            <table class="data-table">
+              <tr>
+                <th>Old Nameserver (Remove)</th>
+                <th>New Nameserver (Enter)</th>
+              </tr>
+              <tr>
+                <td><code>dns1.bigrock.in</code></td>
+                <td><code>ns1.server.ayiarak.in</code></td>
+              </tr>
+              <tr>
+                <td><code>dns2.bigrock.in</code></td>
+                <td><code>ns2.server.ayiarak.in</code></td>
+              </tr>
+              <tr>
+                <td><code>dns3.bigrock.in</code></td>
+                <td><em>(Remove — leave blank)</em></td>
+              </tr>
+              <tr>
+                <td><code>dns4.bigrock.in</code></td>
+                <td><em>(Remove — leave blank)</em></td>
+              </tr>
+            </table>
+            <p>Click <strong>"Update"</strong> / <strong>"Save"</strong> to apply changes.</p>
+          </div>
+        </div>
+
+        <hr class="divider">
+
+        <h3 style="color: var(--primary); margin: 20px 0 12px; font-size: 16px;">Option B: Add A Records (Faster Alternative)</h3>
+        <p style="color: var(--text-secondary); margin-bottom: 16px;">Keep BigRock's nameservers but point the domain to your server IP via A records.</p>
+
+        <div class="step-card">
+          <div class="step-header">
+            <div class="step-num">1</div>
+            <h4>Go to DNS Records in BigRock</h4>
+          </div>
+          <div class="step-body">
+            <div class="nav-path">
+              My Orders <span class="arrow">→</span> yourdomain.com <span class="arrow">→</span> DNS Management <span class="arrow">→</span> Manage DNS Records
+            </div>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-header">
+            <div class="step-num">2</div>
+            <h4>Add A Records</h4>
+          </div>
+          <div class="step-body">
+            <p>Click <strong>"+ Add A Record"</strong> and add these two records:</p>
+            <table class="data-table">
+              <tr>
+                <th>Host</th>
+                <th>Points To (IP Address)</th>
+                <th>TTL</th>
+              </tr>
+              <tr>
+                <td><code>@</code></td>
+                <td><code>YOUR_SERVER_IP</code></td>
+                <td>14400</td>
+              </tr>
+              <tr>
+                <td><code>www</code></td>
+                <td><code>YOUR_SERVER_IP</code></td>
+                <td>14400</td>
+              </tr>
+            </table>
+            <div class="info-box tip">
+              <span class="info-icon">💡</span>
+              <div><strong>Tip:</strong> Replace <code>YOUR_SERVER_IP</code> with the actual server IP from your Plesk panel (e.g., <code>94.136.187.4</code>).</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-box note">
+          <span class="info-icon">⏳</span>
+          <div>
+            <strong>DNS Propagation Time:</strong><br>
+            • <strong>Option A (Nameservers):</strong> Takes 24–72 hours for full global propagation<br>
+            • <strong>Option B (A Records):</strong> Usually propagates within minutes to a few hours<br><br>
+            Check propagation status at: <code>https://www.whatsmydns.net</code>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ===================== CHAPTER 5 ===================== -->
+    <div class="chapter page-break">
+      <div class="chapter-header">
+        <div class="chapter-number">Chapter 05</div>
+        <h2>Add Domain in Plesk Panel</h2>
+        <p>Configure your domain inside the Plesk hosting control panel</p>
+      </div>
+      <div class="chapter-body">
+
+        <div class="step-card">
+          <div class="step-header">
+            <div class="step-num">1</div>
+            <h4>Navigate to Websites & Domains</h4>
+          </div>
+          <div class="step-body">
+            <p>In the Plesk dashboard, go to:</p>
+            <div class="nav-path">
+              Plesk Dashboard <span class="arrow">→</span> Websites & Domains
+            </div>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-header">
+            <div class="step-num">2</div>
+            <h4>Add Your Domain</h4>
+          </div>
+          <div class="step-body">
+            <p>If your hosting plan supports multiple domains:</p>
+            <ol>
+              <li>Click <strong>"Add Domain"</strong></li>
+              <li>Enter your domain name (e.g., <code>yourdomain.com</code>)</li>
+              <li>Set hosting type to <strong>"Website hosting"</strong></li>
+              <li>Set document root (default: <code>httpdocs</code>)</li>
+              <li>Click <strong>"OK"</strong></li>
+            </ol>
+            
+            <div class="info-box warning">
+              <span class="info-icon">⚠️</span>
+              <div><strong>Single Domain Plan?</strong> If you don't see "Add Domain" option, your plan only supports one domain. Instead:
+                <ol style="margin-top: 6px;">
+                  <li>Go to <strong>"Hosting Settings"</strong> of the existing domain</li>
+                  <li>Change the domain name to your new domain</li>
+                  <li>Or add it as a <strong>"Domain Alias"</strong> under Hosting & DNS</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-header">
+            <div class="step-num">3</div>
+            <h4>Configure Hosting Settings</h4>
+          </div>
+          <div class="step-body">
+            <div class="nav-path">
+              Websites & Domains <span class="arrow">→</span> yourdomain.com <span class="arrow">→</span> Hosting Settings
+            </div>
+            <p>Verify these settings:</p>
+            <table class="data-table">
+              <tr>
+                <th>Setting</th>
+                <th>Recommended Value</th>
+              </tr>
+              <tr>
+                <td><strong>Document Root</strong></td>
+                <td><code>httpdocs</code> (or your project subfolder path)</td>
+              </tr>
+              <tr>
+                <td><strong>SSL/TLS Support</strong></td>
+                <td>✅ Enabled</td>
+              </tr>
+              <tr>
+                <td><strong>Permanent redirect to HTTPS</strong></td>
+                <td>✅ Enabled (after SSL setup)</td>
+              </tr>
+              <tr>
+                <td><strong>PHP Version</strong></td>
+                <td>Latest stable (8.x recommended)</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ===================== CHAPTER 6 ===================== -->
+    <div class="chapter page-break">
+      <div class="chapter-header">
+        <div class="chapter-number">Chapter 06</div>
+        <h2>Deploy Website Files via Git</h2>
+        <p>Push your code from GitHub directly to the live server</p>
+      </div>
+      <div class="chapter-body">
+
+        <h3 style="color: var(--primary); margin-bottom: 16px; font-size: 16px;">Part A: Push Code to GitHub (Local Computer)</h3>
+
+        <div class="step-card">
+          <div class="step-header">
+            <div class="step-num">1</div>
+            <h4>Initialize Git Repository</h4>
+          </div>
+          <div class="step-body">
+            <p>Open terminal/command prompt in your project folder and run:</p>
+            <div class="code-block">
+              <span class="comment"># Initialize a new git repository</span><br>
+              <span class="keyword">git</span> init<br><br>
+              <span class="comment"># Add the remote GitHub repository</span><br>
+              <span class="keyword">git</span> remote add origin <span class="value">https://github.com/YOUR_USERNAME/YOUR_REPO.git</span><br><br>
+              <span class="comment"># Stage all files</span><br>
+              <span class="keyword">git</span> add .<br><br>
+              <span class="comment"># Create initial commit</span><br>
+              <span class="keyword">git</span> commit -m <span class="value">"Initial commit"</span><br><br>
+              <span class="comment"># Rename branch to main</span><br>
+              <span class="keyword">git</span> branch -M main<br><br>
+              <span class="comment"># Push to GitHub</span><br>
+              <span class="keyword">git</span> push -u origin main
+            </div>
+          </div>
+        </div>
+
+        <hr class="divider">
+
+        <h3 style="color: var(--primary); margin-bottom: 16px; font-size: 16px;">Part B: Connect Git in Plesk (Server)</h3>
+
+        <div class="step-card">
+          <div class="step-header">
+            <div class="step-num">2</div>
+            <h4>Open Git in Plesk</h4>
+          </div>
+          <div class="step-body">
+            <div class="nav-path">
+              Websites & Domains <span class="arrow">→</span> yourdomain.com <span class="arrow">→</span> Dev Tools <span class="arrow">→</span> Git
+            </div>
+            <p>Click on <strong>"Git"</strong> under the Dev Tools section.</p>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-header">
+            <div class="step-num">3</div>
+            <h4>Add Repository</h4>
+          </div>
+          <div class="step-body">
+            <ol>
+              <li>Click <strong>"Add Repository"</strong> or <strong>"Clone Repository"</strong></li>
+              <li>Fill in the following details:</li>
+            </ol>
+            <table class="data-table">
+              <tr>
+                <th>Field</th>
+                <th>Value</th>
+              </tr>
+              <tr>
+                <td><strong>Remote Git Repository URL</strong></td>
+                <td><code>https://github.com/YOUR_USERNAME/YOUR_REPO.git</code></td>
+              </tr>
+              <tr>
+                <td><strong>Deploy to</strong></td>
+                <td><code>httpdocs</code> (your document root)</td>
+              </tr>
+              <tr>
+                <td><strong>Branch</strong></td>
+                <td><code>main</code></td>
+              </tr>
+              <tr>
+                <td><strong>Auto-deploy</strong></td>
+                <td>✅ Enable for automatic updates</td>
+              </tr>
+            </table>
+            <p>Click <strong>"OK"</strong> to clone the repository.</p>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-header">
+            <div class="step-num">4</div>
+            <h4>Deploy the Code</h4>
+          </div>
+          <div class="step-body">
+            <ol>
+              <li>After cloning is complete, click <strong>"Pull now"</strong> to get the latest code</li>
+              <li>Click <strong>"Deploy now"</strong> to deploy files to the document root</li>
+              <li>Verify files in <strong>File Manager</strong> → <code>httpdocs</code></li>
+            </ol>
+            <div class="info-box tip">
+              <span class="info-icon">💡</span>
+              <div><strong>Auto-deploy:</strong> With auto-deploy enabled, every time you <code>git push</code> from your local computer, Plesk will automatically pull and deploy the latest changes!</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-header">
+            <div class="step-num">5</div>
+            <h4>Verify Document Root</h4>
+          </div>
+          <div class="step-body">
+            <p>Make sure the document root in <strong>Hosting Settings</strong> matches where your <code>index.html</code> file is located.</p>
+            <div class="info-box warning">
+              <span class="info-icon">⚠️</span>
+              <div><strong>Common Issue:</strong> If the deployment creates a subfolder (e.g., <code>httpdocs/ProjectName/ProjectName</code>), update the document root in Hosting Settings to match this path.</div>
+            </div>
+          </div>
+        </div>
+
+        <hr class="divider">
+
+        <h3 style="color: var(--primary); margin-bottom: 16px; font-size: 16px;">Part C: Future Updates</h3>
+        <p style="color: var(--text-secondary); margin-bottom: 10px;">When you make changes to your website locally:</p>
+        <div class="code-block">
+          <span class="comment"># Stage changed files</span><br>
+          <span class="keyword">git</span> add .<br><br>
+          <span class="comment"># Commit with a descriptive message</span><br>
+          <span class="keyword">git</span> commit -m <span class="value">"Updated homepage design"</span><br><br>
+          <span class="comment"># Push to GitHub</span><br>
+          <span class="keyword">git</span> push origin main
+        </div>
+        <p style="color: var(--text-secondary); margin-top: 10px;">Then in Plesk → Git → click <strong>"Pull now"</strong> → <strong>"Deploy now"</strong></p>
+
+      </div>
+    </div>
+
+    <!-- ===================== CHAPTER 7 ===================== -->
+    <div class="chapter page-break">
+      <div class="chapter-header">
+        <div class="chapter-number">Chapter 07</div>
+        <h2>Install SSL Certificate (HTTPS)</h2>
+        <p>Secure your website with a free Let's Encrypt SSL certificate</p>
+      </div>
+      <div class="chapter-body">
+
+        <div class="info-box note">
+          <span class="info-icon">ℹ️</span>
+          <div><strong>Prerequisite:</strong> DNS must be fully propagated (domain must resolve to your server IP) before SSL can be issued. Check at <code>https://www.whatsmydns.net</code></div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-header">
+            <div class="step-num">1</div>
+            <h4>Navigate to SSL/TLS Certificates</h4>
+          </div>
+          <div class="step-body">
+            <div class="nav-path">
+              Websites & Domains <span class="arrow">→</span> yourdomain.com <span class="arrow">→</span> Security <span class="arrow">→</span> SSL/TLS Certificates
+            </div>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-header">
+            <div class="step-num">2</div>
+            <h4>Install Let's Encrypt Certificate</h4>
+          </div>
+          <div class="step-body">
+            <ol>
+              <li>Click <strong>"Install"</strong> next to <strong>Let's Encrypt</strong></li>
+              <li>Select these options:</li>
+            </ol>
+            <table class="data-table">
+              <tr>
+                <th>Option</th>
+                <th>Action</th>
+              </tr>
+              <tr>
+                <td>✅ Secure the domain name</td>
+                <td><code>yourdomain.com</code> — <strong>Check this</strong></td>
+              </tr>
+              <tr>
+                <td>✅ Include "www" subdomain</td>
+                <td><code>www.yourdomain.com</code> — <strong>Check this</strong></td>
+              </tr>
+              <tr>
+                <td>❌ Secure wildcard domain</td>
+                <td><code>*.yourdomain.com</code> — <strong>Uncheck</strong></td>
+              </tr>
+              <tr>
+                <td>❌ Secure webmail</td>
+                <td><code>webmail.yourdomain.com</code> — <strong>Uncheck</strong> (unless needed)</td>
+              </tr>
+              <tr>
+                <td>❌ Secure mail</td>
+                <td><code>mail.yourdomain.com</code> — <strong>Uncheck</strong> (unless needed)</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-header">
+            <div class="step-num">3</div>
+            <h4>Choose Validation Method</h4>
+          </div>
+          <div class="step-body">
+            <table class="data-table">
+              <tr>
+                <th>Method</th>
+                <th>When to Use</th>
+              </tr>
+              <tr>
+                <td><strong>DNS (dns-01)</strong></td>
+                <td>✅ <strong>Recommended</strong> — Use when your nameservers point to the hosting server</td>
+              </tr>
+              <tr>
+                <td><strong>HTTP (http-01)</strong></td>
+                <td>Use when domain already resolves to your server via A records</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-header">
+            <div class="step-num">4</div>
+            <h4>Get the Certificate</h4>
+          </div>
+          <div class="step-body">
+            <ol>
+              <li>Click <strong>"Get it free"</strong></li>
+              <li>Wait for Let's Encrypt to verify and issue the certificate</li>
+              <li>Once done, you'll see <strong>"Secured"</strong> next to your domain</li>
+            </ol>
+            <div class="info-box tip">
+              <span class="info-icon">🔄</span>
+              <div><strong>Auto-Renewal:</strong> Let's Encrypt certificates are valid for 90 days but Plesk automatically renews them 30 days before expiration. No manual action needed!</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="summary-box">
+          <h3>✅ Expected Result After SSL Setup</h3>
+          <ul class="checklist">
+            <li>
+              <span class="check-icon checked">✓</span>
+              <div><code>yourdomain.com</code> — <strong>Secured</strong></div>
+            </li>
+            <li>
+              <span class="check-icon checked">✓</span>
+              <div><code>www.yourdomain.com</code> — <strong>Secured</strong></div>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ===================== CHAPTER 8 ===================== -->
+    <div class="chapter page-break">
+      <div class="chapter-header">
+        <div class="chapter-number">Chapter 08</div>
+        <h2>Set Up HTTP to HTTPS Redirect</h2>
+        <p>Force all website traffic through secure HTTPS connection</p>
+      </div>
+      <div class="chapter-body">
+
+        <p style="margin-bottom: 16px;">After installing SSL, visitors who type <code>http://yourdomain.com</code> still see "Not Secure". You need to redirect HTTP → HTTPS.</p>
+
+        <h3 style="color: var(--primary); margin: 20px 0 12px; font-size: 16px;">Method 1: Via Plesk Hosting Settings (Easiest)</h3>
+
+        <div class="step-card">
+          <div class="step-header">
+            <div class="step-num">1</div>
+            <h4>Enable HTTPS Redirect</h4>
+          </div>
+          <div class="step-body">
+            <div class="nav-path">
+              Websites & Domains <span class="arrow">→</span> yourdomain.com <span class="arrow">→</span> Hosting Settings
+            </div>
+            <p>Enable these checkboxes:</p>
+            <ul class="checklist">
+              <li>
+                <span class="check-icon checked">✓</span>
+                <div><strong>SSL/TLS support</strong> — Enables HTTPS</div>
+              </li>
+              <li>
+                <span class="check-icon checked">✓</span>
+                <div><strong>Permanent SEO-safe 301 redirect from HTTP to HTTPS</strong></div>
+              </li>
+            </ul>
+            <p>Click <strong>"OK"</strong> to save.</p>
+          </div>
+        </div>
+
+        <hr class="divider">
+
+        <h3 style="color: var(--primary); margin: 20px 0 12px; font-size: 16px;">Method 2: Via .htaccess File (Manual)</h3>
+        <p style="color: var(--text-secondary); margin-bottom: 12px;">If Method 1 is not available, create a <code>.htaccess</code> file in your document root:</p>
+
+        <div class="step-card">
+          <div class="step-header">
+            <div class="step-num">1</div>
+            <h4>Create .htaccess File</h4>
+          </div>
+          <div class="step-body">
+            <p>Create a file named <code>.htaccess</code> in your website's root folder (where <code>index.html</code> is located) with this content:</p>
+            <div class="code-block">
+              <span class="keyword">RewriteEngine</span> On<br>
+              <span class="keyword">RewriteCond</span> %{HTTPS} <span class="value">off</span><br>
+              <span class="keyword">RewriteRule</span> ^(.*)$ <span class="value">https://%{HTTP_HOST}%{REQUEST_URI}</span> [L,R=301]
+            </div>
+            <div class="info-box tip">
+              <span class="info-icon">💡</span>
+              <div><strong>Git Method:</strong> Add this file to your project, commit and push to GitHub, then deploy via Plesk Git.</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ===================== CHAPTER 9 ===================== -->
+    <div class="chapter page-break">
+      <div class="chapter-header">
+        <div class="chapter-number">Chapter 09</div>
+        <h2>Verify & Test Your Website</h2>
+        <p>Final checks to ensure everything is working correctly</p>
+      </div>
+      <div class="chapter-body">
+
+        <h3 style="color: var(--primary); margin-bottom: 16px; font-size: 16px;">Verification Checklist</h3>
+
+        <table class="data-table">
+          <tr>
+            <th style="width: 40px;">✓</th>
+            <th>Check</th>
+            <th>How to Verify</th>
+          </tr>
+          <tr>
+            <td>☐</td>
+            <td><strong>DNS Resolution</strong></td>
+            <td>Visit <code>https://www.whatsmydns.net</code> and search for your domain</td>
+          </tr>
+          <tr>
+            <td>☐</td>
+            <td><strong>Website Loads</strong></td>
+            <td>Open <code>https://yourdomain.com</code> in a browser</td>
+          </tr>
+          <tr>
+            <td>☐</td>
+            <td><strong>HTTPS Works</strong></td>
+            <td>Look for the 🔒 lock icon in the address bar</td>
+          </tr>
+          <tr>
+            <td>☐</td>
+            <td><strong>WWW Works</strong></td>
+            <td>Visit <code>https://www.yourdomain.com</code> — should also load</td>
+          </tr>
+          <tr>
+            <td>☐</td>
+            <td><strong>HTTP Redirects</strong></td>
+            <td>Visit <code>http://yourdomain.com</code> — should redirect to HTTPS</td>
+          </tr>
+          <tr>
+            <td>☐</td>
+            <td><strong>Mobile Responsive</strong></td>
+            <td>Open on a mobile phone or use Chrome DevTools (F12 → Mobile view)</td>
+          </tr>
+          <tr>
+            <td>☐</td>
+            <td><strong>All Pages Load</strong></td>
+            <td>Click through all links and pages on the site</td>
+          </tr>
+          <tr>
+            <td>☐</td>
+            <td><strong>No Mixed Content</strong></td>
+            <td>Open Chrome DevTools (F12) → Console → Check for warnings</td>
+          </tr>
+        </table>
+
+        <div class="info-box tip">
+          <span class="info-icon">🔍</span>
+          <div>
+            <strong>Test in Incognito Mode:</strong> Always test your site in an incognito/private browser window to avoid cache issues. Press <strong>Ctrl + Shift + N</strong> (Chrome) or <strong>Ctrl + Shift + P</strong> (Firefox).
+          </div>
+        </div>
+
+        <div class="info-box note">
+          <span class="info-icon">🧹</span>
+          <div>
+            <strong>If site shows "Not Secure" in regular browser but works in Incognito:</strong><br>
+            Clear your browser cache: <strong>Ctrl + Shift + Delete</strong> → Select "All time" → Clear "Cached images and files" → Reload.
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ===================== CHAPTER 10 ===================== -->
+    <div class="chapter page-break">
+      <div class="chapter-header">
+        <div class="chapter-number">Chapter 10</div>
+        <h2>Troubleshooting & FAQ</h2>
+        <p>Common issues and their solutions</p>
+      </div>
+      <div class="chapter-body">
+
+        <div class="step-card">
+          <div class="step-header">
+            <div class="step-num">?</div>
+            <h4>"Domain is not resolvable" in Plesk</h4>
+          </div>
+          <div class="step-body">
+            <p><strong>Cause:</strong> DNS hasn't propagated yet after changing nameservers.</p>
+            <p><strong>Solution:</strong> Wait 24–72 hours. Check status at <code>whatsmydns.net</code>. You can still deploy files during this time.</p>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-header">
+            <div class="step-num">?</div>
+            <h4>SSL Certificate Installation Fails</h4>
+          </div>
+          <div class="step-body">
+            <p><strong>Cause:</strong> DNS hasn't propagated to the server IP.</p>
+            <p><strong>Solution:</strong> Wait for DNS propagation to complete, then try installing SSL again. Try the DNS (dns-01) validation method instead of HTTP.</p>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-header">
+            <div class="step-num">?</div>
+            <h4>Website Shows Plesk Default Page</h4>
+          </div>
+          <div class="step-body">
+            <p><strong>Cause:</strong> Document root is pointing to the wrong folder.</p>
+            <p><strong>Solution:</strong> Go to Hosting Settings and verify the document root points to the folder containing your <code>index.html</code> file. Check File Manager to confirm file locations.</p>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-header">
+            <div class="step-num">?</div>
+            <h4>Browser Shows "Not Secure" Warning</h4>
+          </div>
+          <div class="step-body">
+            <p><strong>Cause 1:</strong> HTTP to HTTPS redirect is not enabled.</p>
+            <p><strong>Solution:</strong> Enable "Permanent 301 redirect to HTTPS" in Hosting Settings or add <code>.htaccess</code> redirect.</p>
+            <p><strong>Cause 2:</strong> Browser cache.</p>
+            <p><strong>Solution:</strong> Clear cache (Ctrl + Shift + Delete) or test in Incognito mode.</p>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-header">
+            <div class="step-num">?</div>
+            <h4>Git Deployment Creates Nested Folders</h4>
+          </div>
+          <div class="step-body">
+            <p><strong>Cause:</strong> Repository name creates extra subdirectory during deployment.</p>
+            <p><strong>Solution:</strong> Update the document root in Hosting Settings to match the actual file path. For example: <code>httpdocs/ProjectName/ProjectName</code></p>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-header">
+            <div class="step-num">?</div>
+            <h4>"Add Domain" Option Not Available in Plesk</h4>
+          </div>
+          <div class="step-body">
+            <p><strong>Cause:</strong> Your hosting plan only supports a single domain.</p>
+            <p><strong>Solution:</strong> Either change the primary domain name in Hosting Settings, or add your domain as a Domain Alias.</p>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-header">
+            <div class="step-num">?</div>
+            <h4>PHP Files Not Working / Showing Code</h4>
+          </div>
+          <div class="step-body">
+            <p><strong>Cause:</strong> PHP is not enabled or wrong version selected.</p>
+            <p><strong>Solution:</strong> Go to Websites & Domains → PHP → Enable PHP and select version 8.x.</p>
+          </div>
+        </div>
+
+        <hr class="divider">
+
+        <h3 style="color: var(--primary); margin: 20px 0 12px; font-size: 16px;">📞 Support Contacts</h3>
+        <table class="data-table">
+          <tr>
+            <th>Provider</th>
+            <th>Contact</th>
+          </tr>
+          <tr>
+            <td><strong>BigRock Support</strong></td>
+            <td>Visit <code>https://www.bigrock.in/support</code> or call their helpline</td>
+          </tr>
+          <tr>
+            <td><strong>MrHost Support</strong></td>
+            <td>Contact via the hosting dashboard or support email</td>
+          </tr>
+          <tr>
+            <td><strong>Let's Encrypt</strong></td>
+            <td>Community forum: <code>https://community.letsencrypt.org</code></td>
+          </tr>
+        </table>
+
+      </div>
+    </div>
+
+    <!-- ===================== QUICK REFERENCE ===================== -->
+    <div class="chapter page-break">
+      <div class="chapter-header" style="background: linear-gradient(135deg, #059669, #34d399);">
+        <div class="chapter-number" style="color: #a7f3d0;">Quick Reference</div>
+        <h2>Summary Cheat Sheet</h2>
+        <p>Everything at a glance — pin this page for quick access</p>
+      </div>
+      <div class="chapter-body">
+
+        <h3 style="color: var(--primary); margin-bottom: 12px; font-size: 16px;">🔗 Important URLs</h3>
+        <table class="data-table">
+          <tr>
+            <th>Service</th>
+            <th>URL</th>
+          </tr>
+          <tr>
+            <td>BigRock Login</td>
+            <td><code>https://myorders.bigrock.in</code></td>
+          </tr>
+          <tr>
+            <td>Plesk Login</td>
+            <td><code>http://YOUR_SERVER_IP:8880/login_up.php</code></td>
+          </tr>
+          <tr>
+            <td>DNS Check</td>
+            <td><code>https://www.whatsmydns.net</code></td>
+          </tr>
+          <tr>
+            <td>SSL Check</td>
+            <td><code>https://www.ssllabs.com/ssltest/</code></td>
+          </tr>
+        </table>
+
+        <h3 style="color: var(--primary); margin: 24px 0 12px; font-size: 16px;">🔧 MrHost Nameservers</h3>
+        <table class="data-table">
+          <tr>
+            <th>Nameserver</th>
+            <th>Value</th>
+          </tr>
+          <tr>
+            <td>NS1</td>
+            <td><code>ns1.server.ayiarak.in</code></td>
+          </tr>
+          <tr>
+            <td>NS2</td>
+            <td><code>ns2.server.ayiarak.in</code></td>
+          </tr>
+        </table>
+
+        <h3 style="color: var(--primary); margin: 24px 0 12px; font-size: 16px;">⚡ Quick Git Commands</h3>
+        <div class="code-block">
+          <span class="keyword">git</span> add .                         <span class="comment"># Stage all changes</span><br>
+          <span class="keyword">git</span> commit -m <span class="value">"your message"</span>     <span class="comment"># Commit changes</span><br>
+          <span class="keyword">git</span> push origin main              <span class="comment"># Push to GitHub</span><br>
+        </div>
+
+        <h3 style="color: var(--primary); margin: 24px 0 12px; font-size: 16px;">📋 Complete Setup Checklist</h3>
+        <ul class="checklist">
+          <li><span class="check-icon">☐</span> <div>Domain registered on BigRock</div></li>
+          <li><span class="check-icon">☐</span> <div>Hosting account active on MrHost (Plesk)</div></li>
+          <li><span class="check-icon">☐</span> <div>Nameservers updated at BigRock</div></li>
+          <li><span class="check-icon">☐</span> <div>DNS propagated (check whatsmydns.net)</div></li>
+          <li><span class="check-icon">☐</span> <div>Domain added/configured in Plesk</div></li>
+          <li><span class="check-icon">☐</span> <div>Website files deployed (Git or FTP)</div></li>
+          <li><span class="check-icon">☐</span> <div>Document root set correctly</div></li>
+          <li><span class="check-icon">☐</span> <div>SSL certificate installed (Let's Encrypt)</div></li>
+          <li><span class="check-icon">☐</span> <div>HTTP → HTTPS redirect enabled</div></li>
+          <li><span class="check-icon">☐</span> <div>Website tested in Incognito mode</div></li>
+          <li><span class="check-icon">☐</span> <div>Website tested on mobile</div></li>
+        </ul>
+
+      </div>
+    </div>
+
+    <!-- ===================== FOOTER ===================== -->
+    <div class="manual-footer">
+      <p><strong>Website Hosting & Domain Setup — User Manual v1.0</strong></p>
+      <p>Domain: BigRock.in &bull; Hosting: MrHost (Plesk Panel)</p>
+      <p>Created: September 2026</p>
+      <p style="margin-top: 12px; color: #94a3b8;">This document is for internal use. Keep your credentials secure and never share them publicly.</p>
+    </div>
+
+  </div>
+
+  <script>
+    // Smooth scroll for any anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>
